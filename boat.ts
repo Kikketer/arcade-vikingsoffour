@@ -9,6 +9,7 @@ class Boat {
     // The last time the direction changed
     private _lastChangeMillis: number = game.runtime()
     private _shoutSprite: Sprite = null
+    private _rowmen: Rowman[] = [new Rowman()]
 
     constructor() {
         this._health = 10
@@ -18,6 +19,9 @@ class Boat {
     }
 
     public destroy() {
+        for (let rowman of this._rowmen) {
+            rowman.destroy()
+        }
         sprites.destroy(this._shoutSprite)
         sprites.destroy(this.boatSprite)
     }
@@ -77,18 +81,18 @@ class Boat {
                 )
             )
         const rightSideFactor = 1
-            // Math.abs(
-            //     Boat.getPlayerRowFactor(
-            //         controller.player2,
-            //         this._currentRowDirection
-            //     )
-            // ) +
-            // Math.abs(
-            //     Boat.getPlayerRowFactor(
-            //         controller.player4,
-            //         this._currentRowDirection
-            //     )
-            // )
+        // Math.abs(
+        //     Boat.getPlayerRowFactor(
+        //         controller.player2,
+        //         this._currentRowDirection
+        //     )
+        // ) +
+        // Math.abs(
+        //     Boat.getPlayerRowFactor(
+        //         controller.player4,
+        //         this._currentRowDirection
+        //     )
+        // )
 
         // Factors can be from -2 to 2
         // Compare the factors to determine if we turn left or right (left = negative?)
@@ -102,7 +106,8 @@ class Boat {
             this.boatSprite.vy > -5
         ) {
             // Move forward if everyone is in sync!
-            this.boatSprite.vy = this.boatSprite.vy - (0.1 * (leftSideFactor + rightSideFactor))
+            this.boatSprite.vy =
+                this.boatSprite.vy - 0.1 * (leftSideFactor + rightSideFactor)
         } else if (this.boatSprite.vy < 0) {
             // Slow down if not in sync
             this.boatSprite.vy = this.boatSprite.vy + 0.2

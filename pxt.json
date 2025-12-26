@@ -11,6 +11,7 @@
         "README.md",
         "assets.json",
         "enemyBoat.ts",
+        "rowman.ts",
         "utils.ts",
         "ocean.ts",
         "boat.ts",
