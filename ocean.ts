@@ -6,6 +6,7 @@ class Ocean {
     private _boat: Boat = null
     // The last line we added waves to (so we don't repeat)
     private _lastWaveLine: number = 0
+    private _activeEnemy: EnemyBoat = null
 
     constructor() {
         scene.setBackgroundColor(11)
@@ -15,6 +16,8 @@ class Ocean {
         // We only need to see it change to decide if waves should be added
         this._lastWaveLine = this._boat.boatSprite.y
         scene.cameraFollowSprite(this._boat.boatSprite)
+
+        this._activeEnemy = new EnemyBoat()
     }
 
     // Used for initial draw of the Ocean
@@ -51,6 +54,10 @@ class Ocean {
                 this._lastWaveLine = this._boat.boatSprite.y
                 this.addMoreWaves()
             }
+        }
+
+        if (this._activeEnemy) {
+            this._activeEnemy.onUpdate()
         }
     }
 }

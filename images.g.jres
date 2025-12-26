@@ -9,6 +9,11 @@
         "mimeType": "image/x-mkcd-f4",
         "displayName": "waves"
     },
+    "image3": {
+        "data": "hwQQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAREREBAAAAEBEREREAAAAQEREREQEAABAREREREQAAEBERERERAAAQEREREQEAABARERERAAAAEBEREQEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "enemyBoat"
+    },
     "anim1": {
         "namespace": "myAnimations",
         "id": "anim1",
