@@ -44,7 +44,7 @@ class EnemyBoat {
             Utils.getDistanceBetweenSprites({
                 spriteA: this.enemySprite,
                 spriteB: this._followSprite
-            }) < 20
+            }) < 30
         ) {
             // Stop following (at least stop moving closer)
             this.enemySprite.follow(this._followSprite, 0)

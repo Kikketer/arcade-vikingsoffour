@@ -1,9 +1,4 @@
 {
-    "image1": {
-        "data": "hwQYABgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADgAAAADgAAAAAAAADuAADgDgAAAAAAAOAOAADuAAAAAAAAAO4AAOAOAAAAAAAAAP///////wAAAADw/////////w8AAPD//z8zMzMz8w8A8P8/MzMzMzMzM//w/z8zMzMzMzMzM///PzMzMzMzMzMzM///PzMzMzMzMzMzM//w/z8zMzMzMzMzM/8A8P8/MzMzMzMzM/8AAP///z8zMzMz8w8AAADw/////////w8AAAAAAP///////wAAAAAAAO4AAOAOAAAAAAAAAOAOAADuAAAAAAAAAADuAADgDgAAAAAAAADgAAAADgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
-        "mimeType": "image/x-mkcd-f4",
-        "displayName": "boat"
-    },
     "image2": {
         "data": "hwQPAAYAAAAAANAAAADQAAAA0AAAAA0AANAAAAAADQAAANAAAA3QAAAN0AAADQAAAA0AANAAAAAADQAAAA0AAAANAAA=",
         "mimeType": "image/x-mkcd-f4",
@@ -23,6 +18,16 @@
         "data": "hwQFAAYAAAAAAAAADgAAAO4AAADgDgAAAO4AAA==",
         "mimeType": "image/x-mkcd-f4",
         "displayName": "oarUp"
+    },
+    "image6": {
+        "data": "hwQFAAYAAAAADgAAAA4AAAAOAAAADgAAAA4AAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "oarStraight"
+    },
+    "image1": {
+        "data": "hwQMABgAAAAAAAAAAP///////wAAAADw/////////w8AAPD//z8zMzMz8w8A8P8/MzMzMzMzM//w/z8zMzMzMzMzM///PzMzMzMzMzMzM///PzMzMzMzMzMzM//w/z8zMzMzMzMzM/8A8P8/MzMzMzMzM/8AAP///z8zMzMz8w8AAADw/////////w8AAAAAAP///////wA=",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "boat"
     },
     "anim1": {
         "namespace": "myAnimations",

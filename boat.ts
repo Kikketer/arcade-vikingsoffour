@@ -9,18 +9,21 @@ class Boat {
     // The last time the direction changed
     private _lastChangeMillis: number = game.runtime()
     private _shoutSprite: Sprite = null
-    private _rowmen: Rowman[] = [
-        new Rowman(controller.player1), 
-        new Rowman(controller.player2), 
-        new Rowman(controller.player3), 
-        new Rowman(controller.player4)
-    ]
+    private _rowmen: Rowman[] = null
 
     constructor() {
         this._health = 10
         this.boatSprite = sprites.create(this._boatImage, SpriteKind.Player)
         this.boatSprite.setPosition(80, 100)
         this.boatSprite.z = 50
+
+        // And create the rowmen:
+        this._rowmen = [
+            new Rowman({ controller: controller.player1, boat: this.boatSprite }),
+            new Rowman({ controller: controller.player2, boat: this.boatSprite }),
+            new Rowman({ controller: controller.player3, boat: this.boatSprite }),
+            new Rowman({ controller: controller.player4, boat: this.boatSprite })
+        ]
     }
 
     public destroy() {
@@ -63,6 +66,10 @@ class Boat {
     }
 
     public onUpdate() {
+        for (let i = 0; i < this._rowmen.length; i++) {
+            this._rowmen[i].onUpdate()
+        }
+
         if (game.runtime() - this._lastChangeMillis > this._rythmRate) {
             this._lastChangeMillis = game.runtime()
             // Change direction!
