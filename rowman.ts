@@ -80,6 +80,7 @@ class Rowman {
             this._arrow.follow(Ocean.activeEnemy.enemySprite, 40)
         } else if (!isLeftSide && Ocean.activeEnemy.enemySprite.x >= this._boat.x) {
             // Shoot right
+            this._arrow.image.flipX()
             this._arrow.follow(Ocean.activeEnemy.enemySprite, 40)
         } else if (isLeftSide) {
             this._arrow.vx = -40
