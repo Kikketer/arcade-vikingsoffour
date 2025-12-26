@@ -38,7 +38,8 @@ class Ocean {
         // For now just spawn at the top
         const newWave = new Sprite(assets.image`waves`)
         newWave.setFlag(SpriteFlag.AutoDestroy, true)
-        newWave.setPosition(Math.floor(Math.random() * 160), this._boat.boatSprite.y - 60)
+        newWave.setPosition(Math.floor(Math.random() * 160) + (this._boat.boatSprite.x - 80), this._boat.boatSprite.y - 60)
+        newWave.z = 0
         animation.runImageAnimation(newWave, assets.animation`waveAnimation`, 500, true)
     }
 
@@ -46,8 +47,7 @@ class Ocean {
         if (this._boat) {
             this._boat.onUpdate()
             // Add more waves if we have gone X pixels beyond last Check
-            // boatY = -18, last = 9
-            if (Math.abs(this._boat.boatSprite.y - this._lastWaveLine) > 10) {
+            if (Math.abs(this._boat.boatSprite.y - this._lastWaveLine) > Math.floor(Math.random() * 5) + 10) {
                 this._lastWaveLine = this._boat.boatSprite.y
                 this.addMoreWaves()
             }

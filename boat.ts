@@ -15,6 +15,7 @@ class Boat {
         this.boatSprite = sprites.create(this._boatImage, SpriteKind.Player)
         this.boatSprite.setPosition(80, 100)
         this.boatSprite.vy = -5
+        this.boatSprite.z = 50
     }
 
     public destroy() {
@@ -44,6 +45,7 @@ class Boat {
         let directionName = this._currentRowDirection > 0 ? 'Down!' : 'Up!'
         this._shoutSprite = textsprite.create(directionName)
         this._shoutSprite.setPosition(this.boatSprite.x + 10, this.boatSprite.y - 15)
+        this._shoutSprite.z = 51
     }
 
     public onUpdate() {
