@@ -85,6 +85,14 @@ f f f 3 3 3 3 3 3 f f f
 . f f f f f f f f f f . 
 . . . f f f f f f . . . 
 `;
+            case "image7":
+            case "arrowLeft":return img`
+. . . . . . . 1 1 1 1 
+. 1 . . . . 1 1 1 1 . 
+1 1 3 3 3 3 3 3 3 . . 
+. 1 . . . . 1 1 1 1 . 
+. . . . . . . 1 1 1 1 
+`;
         }
         return null;
     })

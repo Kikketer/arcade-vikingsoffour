@@ -6,7 +6,7 @@ class Ocean {
     private _boat: Boat = null
     // The last line we added waves to (so we don't repeat)
     private _lastWaveLine: number = 0
-    private _activeEnemy: EnemyBoat = null
+    static activeEnemy: EnemyBoat = null
     private _nextEnemySpawn: number = 0
 
     constructor() {
@@ -18,7 +18,7 @@ class Ocean {
         this._lastWaveLine = this._boat.boatSprite.y
         scene.cameraFollowSprite(this._boat.boatSprite)
 
-        this._activeEnemy = new EnemyBoat({
+        Ocean.activeEnemy = new EnemyBoat({
             followTarget: this._boat.boatSprite
         })
 
@@ -79,11 +79,11 @@ class Ocean {
             }
         }
 
-        if (this._activeEnemy) {
-            this._activeEnemy.onUpdate()
+        if (Ocean.activeEnemy) {
+            Ocean.activeEnemy.onUpdate()
         } else if (game.runtime() > this._nextEnemySpawn) {
             console.log('Creating enemy boat!')
-            this._activeEnemy = new EnemyBoat({
+            Ocean.activeEnemy = new EnemyBoat({
                 followTarget: this._boat.boatSprite
             })
             // Schedule next spawn

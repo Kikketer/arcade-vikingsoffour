@@ -29,6 +29,11 @@
         "mimeType": "image/x-mkcd-f4",
         "displayName": "boat"
     },
+    "image7": {
+        "data": "hwQLAAUAAAAAAQAAEBEAAAADAAAAAwAAAAMAAAADAAAQEwAAERMBABETAQAREAEAAQABAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "arrowLeft"
+    },
     "anim1": {
         "namespace": "myAnimations",
         "id": "anim1",
