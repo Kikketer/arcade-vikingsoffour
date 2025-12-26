@@ -79,21 +79,21 @@ class Ocean {
             }
         }
 
-        // if (this._activeEnemy) {
-        //     // this._activeEnemy.onUpdate()
-        // } else if (game.runtime() > this._nextEnemySpawn) {
-        //     console.log('Creating enemy boat!')
-        //     // Schedule next spawn
-        //     this._nextEnemySpawn =
-        //         game.runtime() + Math.floor(Math.random() * 5000) + 5000
+        if (this._activeEnemy) {
+            this._activeEnemy.onUpdate()
+        } else if (game.runtime() > this._nextEnemySpawn) {
+            console.log('Creating enemy boat!')
+            // Schedule next spawn
+            this._nextEnemySpawn =
+                game.runtime() + Math.floor(Math.random() * 5000) + 5000
 
-        //     // this._activeEnemy = new EnemyBoat({
-        //     //     top: this._boat.boatSprite.y - 60,
-        //     //     bottom: this._boat.boatSprite.y + 60,
-        //     //     left: this._boat.boatSprite.x - 80,
-        //     //     right: this._boat.boatSprite.x + 80,
-        //     //     followTarget: this._boat.boatSprite
-        //     // })
-        // }
+            // this._activeEnemy = new EnemyBoat({
+            //     top: this._boat.boatSprite.y - 60,
+            //     bottom: this._boat.boatSprite.y + 60,
+            //     left: this._boat.boatSprite.x - 80,
+            //     right: this._boat.boatSprite.x + 80,
+            //     followTarget: this._boat.boatSprite
+            // })
+        }
     }
 }
