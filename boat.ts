@@ -9,7 +9,6 @@ class Boat {
     // The last time the direction changed
     private _lastChangeMillis: number = game.runtime()
     private _shoutSprite: Sprite = null
-    private _rowmen: Rowman[] = []
 
     constructor() {
         this._health = 10
