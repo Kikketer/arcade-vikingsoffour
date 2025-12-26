@@ -1,24 +1,19 @@
- 
+# Vikings of Four
+
+> Open this page at [https://cjweed.com/arcade-vikingsoffour/](https://cjweed.com/arcade-vikingsoffour/)
+
+The 4 player viking game primarily used as a test for the 4 player setup of my arcade box.
 
 
-> Open this page at [https://kikketer.github.io/arcade-vikingsoffour/](https://kikketer.github.io/arcade-vikingsoffour/)
+## TODO:
 
-## Use as Extension
+- Single tilemap for the "ocean"
+- Enemies randomly float about but will head to you if you are close
+- Once all enemies are dead you move to the next level
 
-This repository can be added as an **extension** in MakeCode.
+## Crazy Idea Pile
 
-* open [https://arcade.makecode.com/](https://arcade.makecode.com/)
-* click on **New Project**
-* click on **Extensions** under the gearwheel menu
-* search for **https://github.com/kikketer/arcade-vikingsoffour** and import
-
-## Edit this project
-
-To edit this repository in MakeCode.
-
-* open [https://arcade.makecode.com/](https://arcade.makecode.com/)
-* click on **Import** then click on **Import URL**
-* paste **https://github.com/kikketer/arcade-vikingsoffour** and click import
+- What if we had two arcade boxes, 4 player each and battled each-other?
 
 #### Metadata (used for search, rendering)
 
