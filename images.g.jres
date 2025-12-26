@@ -4,6 +4,18 @@
         "mimeType": "image/x-mkcd-f4",
         "displayName": "boat"
     },
+    "image2": {
+        "data": "hwQPAAYAAAAAANAAAADQAAAA0AAAAA0AANAAAAAADQAAANAAAA3QAAAN0AAADQAAAA0AANAAAAAADQAAAA0AAAANAAA=",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "waves"
+    },
+    "anim1": {
+        "namespace": "myAnimations",
+        "id": "anim1",
+        "mimeType": "application/mkcd-animation",
+        "data": "YzgwMDBmMDAwNjAwMDIwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMGQwMDAwMDAwMGQwZGQwZGRkMGQwMGQwMDAwMDAwMDAwMDAwZDBkMDAwMDAwMDAwZDBkZDAwZDBkZDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMGQwMDAwMDAwMDAwMDAwZGRkMGRkMGQwMDAwMDAwMDAwMDAwMDAwMDBkZDBkMDAwMDAwMDBkZDBkMDBkZDAwMDAwMA==",
+        "displayName": "waveAnimation"
+    },
     "*": {
         "mimeType": "image/x-mkcd-f4",
         "dataEncoding": "base64",

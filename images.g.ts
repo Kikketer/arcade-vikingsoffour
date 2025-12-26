@@ -30,13 +30,37 @@ namespace myImages {
 .......ffffffffff.......
 .........ffffff.........
 `;
+            case "image2":
+            case "waves":return img`
+. . . . . . . . . . . . . . . 
+. . . . . . . . . . . d . . . 
+. . . . . . . d d d d . d d d 
+. . . . d . . . . . . . . . . 
+. . . d . d . . . . . . . . . 
+d d d . . . d d d . . . . . . 
+`;
         }
         return null;
     })
 
     helpers._registerFactory("animation", function(name: string) {
         switch(helpers.stringTrim(name)) {
-
+            case "waveAnimation":
+            case "anim1":return [img`
+. . . . . . . . . . . . . . . 
+. . . . . . . . . . . d . . . 
+. . . . . . . d d d d . d d d 
+. . . . d . . . . . . . . . . 
+. . . d . d . . . . . . . . . 
+d d d . . . d d d . . . . . . 
+`, img`
+. . . . . . . . . . . . . . . 
+. . . . . . . . . . d . . . . 
+. . . . . . . . d d . d d d d 
+. . . . . . . . . . . . . . . 
+. . . . d d d . . . . . . . . 
+. d d d . . . d d . . . . . . 
+`];
         }
         return null;
     })

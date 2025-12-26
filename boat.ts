@@ -1,6 +1,6 @@
 class Boat {
+    public boatSprite: Sprite = null
     private _health = 10
-    private _boatSprite: Sprite = null
     private _boatImage: Image = assets.image`boat`
     // Half second per "beat"
     private _rythmRate: number = 1000
@@ -12,13 +12,14 @@ class Boat {
 
     constructor() {
         this._health = 10
-        this._boatSprite = sprites.create(this._boatImage, SpriteKind.Player)
-        this._boatSprite.setPosition(80, 100)
+        this.boatSprite = sprites.create(this._boatImage, SpriteKind.Player)
+        this.boatSprite.setPosition(80, 100)
+        this.boatSprite.vy = -5
     }
 
     public destroy() {
         sprites.destroy(this._shoutSprite)
-        sprites.destroy(this._boatSprite)
+        sprites.destroy(this.boatSprite)
     }
 
     // Get the player row factor
@@ -42,7 +43,7 @@ class Boat {
 
         let directionName = this._currentRowDirection > 0 ? 'Down!' : 'Up!'
         this._shoutSprite = textsprite.create(directionName)
-        this._shoutSprite.setPosition(this._boatSprite.x + 10, this._boatSprite.y - 15)
+        this._shoutSprite.setPosition(this.boatSprite.x + 10, this.boatSprite.y - 15)
     }
 
     public onUpdate() {
@@ -61,10 +62,10 @@ class Boat {
         // Factors can be from -2 to 2
         // Compare the factors to determine if we turn left or right (left = negative?)
         const resultingFactor = leftSideFactor - rightSideFactor
-        this._boatSprite.vx =  2 * resultingFactor
+        this.boatSprite.vx =  2 * resultingFactor
         if (resultingFactor === 0 && leftSideFactor > 0 && rightSideFactor > 0) {
             // Move forward if everyone is in sync!
-            this._boatSprite.vy -= 5
+            this.boatSprite.vy = this.boatSprite.vy - (2 * resultingFactor)
         }
     }
 }

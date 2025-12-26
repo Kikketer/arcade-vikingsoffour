@@ -4,7 +4,6 @@
 
 The 4 player viking game primarily used as a test for the 4 player setup of my arcade box.
 
-
 ## TODO:
 
 - Single tilemap for the "ocean"
@@ -13,7 +12,9 @@ The 4 player viking game primarily used as a test for the 4 player setup of my a
 
 ## Crazy Idea Pile
 
+- For now simply move streight and "land" to invade the settlement
 - What if we had two arcade boxes, 4 player each and battled each-other?
+- A larger area including turning
 
 #### Metadata (used for search, rendering)
 
