@@ -14,7 +14,7 @@ class Boat {
         this._health = 10
         this.boatSprite = sprites.create(this._boatImage, SpriteKind.Player)
         this.boatSprite.setPosition(80, 100)
-        this.boatSprite.vy = -5
+        // this.boatSprite.vy = -5
         this.boatSprite.z = 50
     }
 
@@ -25,7 +25,10 @@ class Boat {
 
     // Get the player row factor
     // If they are not in compliance with the direction (-1 = up, 1 = down) return 0
-    static getPlayerRowFactor(controller: controller.Controller, direction: number) {
+    static getPlayerRowFactor(
+        controller: controller.Controller,
+        direction: number
+    ) {
         // Return -1 or 1 depending on the direction of the arrow
         // dy is somewhere around 2.xxxx so this just "normalizes" it
         // Up = -1, Down = 1
@@ -44,7 +47,10 @@ class Boat {
 
         let directionName = this._currentRowDirection > 0 ? 'Down!' : 'Up!'
         this._shoutSprite = textsprite.create(directionName)
-        this._shoutSprite.setPosition(this.boatSprite.x + 10, this.boatSprite.y - 15)
+        this._shoutSprite.setPosition(
+            this.boatSprite.x + 10,
+            this.boatSprite.y - 15
+        )
         this._shoutSprite.z = 51
     }
 
@@ -58,16 +64,44 @@ class Boat {
         }
         // Check to make sure all players per side are complying to the paddle rythm
         // If any player on either side is out of alignment, turn that direction
-        const leftSideFactor = Math.abs(Boat.getPlayerRowFactor(controller.player1, this._currentRowDirection)) + Math.abs(Boat.getPlayerRowFactor(controller.player3, this._currentRowDirection))
-        const rightSideFactor = Math.abs(Boat.getPlayerRowFactor(controller.player2, this._currentRowDirection)) + Math.abs(Boat.getPlayerRowFactor(controller.player4, this._currentRowDirection))
+        const leftSideFactor =
+            Math.abs(
+                Boat.getPlayerRowFactor(
+                    controller.player1,
+                    this._currentRowDirection
+                )
+            ) +
+            Math.abs(
+                Boat.getPlayerRowFactor(
+                    controller.player3,
+                    this._currentRowDirection
+                )
+            )
+        const rightSideFactor =
+            Math.abs(
+                Boat.getPlayerRowFactor(
+                    controller.player2,
+                    this._currentRowDirection
+                )
+            ) +
+            Math.abs(
+                Boat.getPlayerRowFactor(
+                    controller.player4,
+                    this._currentRowDirection
+                )
+            )
 
         // Factors can be from -2 to 2
         // Compare the factors to determine if we turn left or right (left = negative?)
         const resultingFactor = leftSideFactor - rightSideFactor
-        this.boatSprite.vx =  2 * resultingFactor
-        if (resultingFactor === 0 && leftSideFactor > 0 && rightSideFactor > 0) {
+        this.boatSprite.vx = 2 * resultingFactor
+        if (
+            resultingFactor === 0 &&
+            leftSideFactor > 0 &&
+            rightSideFactor > 0
+        ) {
             // Move forward if everyone is in sync!
-            this.boatSprite.vy = this.boatSprite.vy - (2 * resultingFactor)
+            this.boatSprite.vy = this.boatSprite.vy - 2 * resultingFactor
         }
     }
 }

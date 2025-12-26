@@ -7,6 +7,7 @@ class Ocean {
     // The last line we added waves to (so we don't repeat)
     private _lastWaveLine: number = 0
     private _activeEnemy: EnemyBoat = null
+    private _nextEnemySpawn: number = 0
 
     constructor() {
         scene.setBackgroundColor(11)
@@ -17,7 +18,13 @@ class Ocean {
         this._lastWaveLine = this._boat.boatSprite.y
         scene.cameraFollowSprite(this._boat.boatSprite)
 
-        this._activeEnemy = new EnemyBoat()
+        // this._activeEnemy = new EnemyBoat()
+
+        // this._activeEnemy.enemySprite.vy = 20
+
+        // Decide when the next enemy should spawn
+        this._nextEnemySpawn =
+            game.runtime() + Math.floor(Math.random() * 5000) + 5000
     }
 
     // Used for initial draw of the Ocean
@@ -31,7 +38,12 @@ class Ocean {
             // Destroy when leaving the screen
             spriteToCreate.setFlag(SpriteFlag.AutoDestroy, true)
             spriteToCreate.setPosition(xPos, yPos)
-            animation.runImageAnimation(spriteToCreate, assets.animation`waveAnimation`, 500, true)
+            animation.runImageAnimation(
+                spriteToCreate,
+                assets.animation`waveAnimation`,
+                500,
+                true
+            )
         }
     }
 
@@ -41,23 +53,47 @@ class Ocean {
         // For now just spawn at the top
         const newWave = new Sprite(assets.image`waves`)
         newWave.setFlag(SpriteFlag.AutoDestroy, true)
-        newWave.setPosition(Math.floor(Math.random() * 160) + (this._boat.boatSprite.x - 80), this._boat.boatSprite.y - 60)
+        newWave.setPosition(
+            Math.floor(Math.random() * 160) + (this._boat.boatSprite.x - 80),
+            this._boat.boatSprite.y - 60
+        )
         newWave.z = 0
-        animation.runImageAnimation(newWave, assets.animation`waveAnimation`, 500, true)
+        animation.runImageAnimation(
+            newWave,
+            assets.animation`waveAnimation`,
+            500,
+            true
+        )
     }
 
     public onUpdate() {
         if (this._boat) {
             this._boat.onUpdate()
             // Add more waves if we have gone X pixels beyond last Check
-            if (Math.abs(this._boat.boatSprite.y - this._lastWaveLine) > Math.floor(Math.random() * 5) + 10) {
+            if (
+                Math.abs(this._boat.boatSprite.y - this._lastWaveLine) >
+                Math.floor(Math.random() * 5) + 10
+            ) {
                 this._lastWaveLine = this._boat.boatSprite.y
                 this.addMoreWaves()
             }
         }
 
-        if (this._activeEnemy) {
-            this._activeEnemy.onUpdate()
-        }
+        // if (this._activeEnemy) {
+        //     // this._activeEnemy.onUpdate()
+        // } else if (game.runtime() > this._nextEnemySpawn) {
+        //     console.log('Creating enemy boat!')
+        //     // Schedule next spawn
+        //     this._nextEnemySpawn =
+        //         game.runtime() + Math.floor(Math.random() * 5000) + 5000
+
+        //     // this._activeEnemy = new EnemyBoat({
+        //     //     top: this._boat.boatSprite.y - 60,
+        //     //     bottom: this._boat.boatSprite.y + 60,
+        //     //     left: this._boat.boatSprite.x - 80,
+        //     //     right: this._boat.boatSprite.x + 80,
+        //     //     followTarget: this._boat.boatSprite
+        //     // })
+        // }
     }
 }

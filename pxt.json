@@ -10,21 +10,18 @@
         "main.ts",
         "README.md",
         "assets.json",
+        "enemyBoat.ts",
         "ocean.ts",
         "boat.ts",
         "images.g.jres",
         "images.g.ts"
     ],
-    "testFiles": [
-        "test.ts"
-    ],
+    "testFiles": ["test.ts"],
     "targetVersions": {
         "target": "2.0.63",
         "targetId": "arcade"
     },
-    "supportedTargets": [
-        "arcade"
-    ],
+    "supportedTargets": ["arcade"],
     "preferredEditor": "tsprj",
     "palette": [
         "#000000",
