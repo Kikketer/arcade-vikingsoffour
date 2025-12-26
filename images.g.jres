@@ -14,6 +14,16 @@
         "mimeType": "image/x-mkcd-f4",
         "displayName": "enemyBoat"
     },
+    "image4": {
+        "data": "hwQFAAYAAAAAAAAAAADgAAAA7gAA4A4AAO4AAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "oarDown"
+    },
+    "image5": {
+        "data": "hwQFAAYAAAAAAAAADgAAAO4AAADgDgAAAO4AAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "oarUp"
+    },
     "anim1": {
         "namespace": "myAnimations",
         "id": "anim1",

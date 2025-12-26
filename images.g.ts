@@ -58,6 +58,24 @@ d d d . . . d d d . . . . . .
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
 `;
+            case "image4":
+            case "oarDown":return img`
+. . . . . 
+. . . . . 
+. . . . e 
+. . . e e 
+. . e e . 
+. e e . . 
+`;
+            case "image5":
+            case "oarUp":return img`
+. e e . . 
+. . e e . 
+. . . e e 
+. . . . e 
+. . . . . 
+. . . . . 
+`;
         }
         return null;
     })

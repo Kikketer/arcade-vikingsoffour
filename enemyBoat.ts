@@ -6,6 +6,7 @@ class EnemyBoat {
         this._followSprite = followTarget
         // When creating a new enemy boat, pick a random side to spawn on
         this.enemySprite = sprites.create(assets.image`enemyBoat`)
+        this.enemySprite.z = 50
         // Spawn the sprite off screen
         const spawnSide = Math.floor(Math.random() * 3)
         switch (spawnSide) {
