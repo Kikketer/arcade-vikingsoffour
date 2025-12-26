@@ -9,7 +9,12 @@ class Boat {
     // The last time the direction changed
     private _lastChangeMillis: number = game.runtime()
     private _shoutSprite: Sprite = null
-    private _rowmen: Rowman[] = [new Rowman()]
+    private _rowmen: Rowman[] = [
+        new Rowman(controller.player1), 
+        new Rowman(controller.player2), 
+        new Rowman(controller.player3), 
+        new Rowman(controller.player4)
+    ]
 
     constructor() {
         this._health = 10
@@ -29,16 +34,16 @@ class Boat {
     // Get the player row factor
     // If they are not in compliance with the direction (-1 = up, 1 = down) return 0
     static getPlayerRowFactor(
-        controller: controller.Controller,
+        rowman: Rowman,
         direction: number
     ) {
         // Return -1 or 1 depending on the direction of the arrow
         // dy is somewhere around 2.xxxx so this just "normalizes" it
         // Up = -1, Down = 1
-        if (controller.dy() < 0) {
+        if (rowman.oarDirection < 0) {
             if (direction < 0) return -1
             return 0
-        } else if (controller.dy() > 0) {
+        } else if (rowman.oarDirection > 0) {
             if (direction > 0) return 1
             return 0
         }
@@ -70,25 +75,25 @@ class Boat {
         const leftSideFactor =
             Math.abs(
                 Boat.getPlayerRowFactor(
-                    controller.player1,
+                    this._rowmen[0],
                     this._currentRowDirection
                 )
             ) +
             Math.abs(
                 Boat.getPlayerRowFactor(
-                    controller.player3,
+                    this._rowmen[2],
                     this._currentRowDirection
                 )
             )
         const rightSideFactor = Math.abs(
             Boat.getPlayerRowFactor(
-                controller.player2,
+                this._rowmen[1],
                 this._currentRowDirection
             )
         ) +
         Math.abs(
             Boat.getPlayerRowFactor(
-                controller.player4,
+                this._rowmen[3],
                 this._currentRowDirection
             )
         )
