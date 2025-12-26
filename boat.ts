@@ -80,22 +80,21 @@ class Boat {
                     this._currentRowDirection
                 )
             )
-        const rightSideFactor = 1
-        // Math.abs(
-        //     Boat.getPlayerRowFactor(
-        //         controller.player2,
-        //         this._currentRowDirection
-        //     )
-        // ) +
-        // Math.abs(
-        //     Boat.getPlayerRowFactor(
-        //         controller.player4,
-        //         this._currentRowDirection
-        //     )
-        // )
+        const rightSideFactor = Math.abs(
+            Boat.getPlayerRowFactor(
+                controller.player2,
+                this._currentRowDirection
+            )
+        ) +
+        Math.abs(
+            Boat.getPlayerRowFactor(
+                controller.player4,
+                this._currentRowDirection
+            )
+        )
 
         // Factors can be from -2 to 2
-        // Compare the factors to determine if we turn left or right (left = negative?)
+        // Compare the factors to determine if we turn left or right
         const resultingFactor = leftSideFactor - rightSideFactor
         this.boatSprite.vx = 2 * resultingFactor
 
@@ -107,7 +106,7 @@ class Boat {
         ) {
             // Move forward if everyone is in sync!
             this.boatSprite.vy =
-                this.boatSprite.vy - 0.1 * (leftSideFactor + rightSideFactor)
+                this.boatSprite.vy - 0.2 * (leftSideFactor + rightSideFactor)
         } else if (this.boatSprite.vy < 0) {
             // Slow down if not in sync
             this.boatSprite.vy = this.boatSprite.vy + 0.2
