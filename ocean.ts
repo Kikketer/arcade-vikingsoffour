@@ -18,9 +18,9 @@ class Ocean {
         this._lastWaveLine = this._boat.boatSprite.y
         scene.cameraFollowSprite(this._boat.boatSprite)
 
-        // this._activeEnemy = new EnemyBoat()
-
-        // this._activeEnemy.enemySprite.vy = 20
+        this._activeEnemy = new EnemyBoat({
+            followTarget: this._boat.boatSprite
+        })
 
         // Decide when the next enemy should spawn
         this._nextEnemySpawn =

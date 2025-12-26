@@ -1,20 +1,19 @@
 class EnemyBoat {
     public enemySprite: Sprite = null
+    private _followSprite: Sprite = null
 
-    constructor() {
-        console.log('Creating enemy boat!')
+    constructor({ followTarget }: { followTarget: Sprite }) {
+        this._followSprite = followTarget
         // When creating a new enemy boat, pick a random side to spawn on
-        this.enemySprite = new Sprite(assets.image`enemyBoat`)
-        // this.enemySprite.setPosition(
-        //     Math.floor(Math.random() * (right - left)) + left,
-        //     Math.floor(Math.random() * (bottom - top)) + top
-        // )
-        // this.enemySprite.setVelocity(0, 20)
-        // console.logValue('Enemy moving....', this.enemySprite.vy)
-        // this.enemySprite.follow(followTarget, 100)
+        this.enemySprite = sprites.create(assets.image`enemyBoat`)
+        this.enemySprite.follow(this._followSprite, 5)
     }
 
-    public onUpdate() {}
+    public onUpdate() {
+        // if (Utils.getDistanceBetweenSprites({ spriteA: this.enemySprite, spriteB: this._followSprite}) < 20) {
+        //     console.log("I'm Close!!!!")
+        // }
+    }
 
     public destroy() {}
 }
