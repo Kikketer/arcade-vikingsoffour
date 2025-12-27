@@ -19,6 +19,8 @@ class Boat {
         this.boatSprite.setPosition(80, 0)
         this.boatSprite.z = 50
 
+        animation.runImageAnimation(this.boatSprite, assets.animation`Wind`, 400, true)
+
         // And create the rowmen:
         this._rowmen = [
             new Rowman({ controller: controller.player1, boat: this.boatSprite, onShootArrow: () => this._resetShooter(controller.player1) }),

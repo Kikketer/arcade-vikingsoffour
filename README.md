@@ -13,6 +13,9 @@ The 4 player viking game primarily used as a test for the 4 player setup of my a
 
 - Add the "press now to load" sprite
 - Add the "kraken" timer, you must row to the finish before it gets you
+- Allow to play with only 2 players
+    - 2 player - the game is "just" beatable with perfect rowing
+    - 4 player - you have some freedom to fail due to how fast you move
 
 ## Crazy Idea Pile
 
