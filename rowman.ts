@@ -13,7 +13,8 @@ class Rowman {
     private _isLeftRowman: boolean = false
     private _isShooter: boolean = false
     // Increase load interval every X (and not before)
-    private _arrowLoadInterval: number = 500
+    // 100ms slop so you can be slightly off
+    private _arrowLoadInterval: number = 400
     public canShoot: boolean = false
     private _onShootArrow: () => void
     
