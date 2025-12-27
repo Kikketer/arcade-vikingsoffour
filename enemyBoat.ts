@@ -62,9 +62,12 @@ class EnemyBoat {
         if (!this._arrow && this._nextShotTime < game.runtime()) {
             this._nextShotTime = game.runtime() + Math.floor(Math.random() * 2000) + 4000
             this._arrow = sprites.create(assets.image`arrowLeft`, SpriteKind.EnemyArrow)
+            this._arrow.onDestroyed(() => this._arrow = null)
+            
             if (this.enemySprite.x < this._followSprite.x) {
                 this._arrow.image.flipX()
             }
+            
             this._arrow.setPosition(this.enemySprite.x, this.enemySprite.y)
             this._arrow.setFlag(SpriteFlag.AutoDestroy, true)
             this._arrow.follow(this._followSprite, 100)

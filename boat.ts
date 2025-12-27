@@ -151,8 +151,6 @@ class Boat {
         const resultingFactor = leftSideFactor - rightSideFactor
         this.boatSprite.vx = 2 * resultingFactor
 
-        this.boatSprite.vy = -10
-
         if (
             resultingFactor === 0 &&
             leftSideFactor > 0 &&
