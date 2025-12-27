@@ -11,6 +11,7 @@ class Boat {
     private _shoutSprite: Sprite = null
     private _rowmen: Rowman[] = null
     private _onDie: () => void
+    private _activeEnemy: EnemyBoat = null
     private _topLoaded: boolean = false
     private _bottomLoaded: boolean = false
 
@@ -66,6 +67,23 @@ class Boat {
         return 0
     }
 
+    private _loadArrow(loader: controller.Controller) {
+        // Determine where the current active enemy is
+        // If on the opposite side of the controller, mark as loaded
+        if (!this._activeEnemy) return
+
+        const enemyOnLeft = this._activeEnemy.enemySprite.x < this.boatSprite.x
+        if (!enemyOnLeft && loader.playerIndex === 1) {
+            this._topLoaded = true
+        } else if (!enemyOnLeft && loader.playerIndex === 3) {
+            this._bottomLoaded = true
+        } else if (enemyOnLeft && loader.playerIndex === 2) {
+            this._topLoaded = true
+        } else if (enemyOnLeft && loader.playerIndex === 4) {
+            this._bottomLoaded = true
+        }
+    }
+
     private _shoutDirection() {
         sprites.destroy(this._shoutSprite)
 
@@ -88,6 +106,7 @@ class Boat {
     }
 
     public onUpdate({ activeEnemy }: { activeEnemy: EnemyBoat }) {
+        this._activeEnemy = activeEnemy
         for (let i = 0; i < this._rowmen.length; i++) {
             this._rowmen[i].onUpdate({ activeEnemy })
         }
