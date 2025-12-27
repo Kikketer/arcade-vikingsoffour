@@ -21,10 +21,10 @@ class Boat {
 
         // And create the rowmen:
         this._rowmen = [
-            new Rowman({ controller: controller.player1, boat: this.boatSprite }),
-            new Rowman({ controller: controller.player2, boat: this.boatSprite }),
-            new Rowman({ controller: controller.player3, boat: this.boatSprite }),
-            new Rowman({ controller: controller.player4, boat: this.boatSprite })
+            new Rowman({ controller: controller.player1, boat: this.boatSprite, onShootArrow: () => this._resetShooter(controller.player1) }),
+            new Rowman({ controller: controller.player2, boat: this.boatSprite, onShootArrow: () => this._resetShooter(controller.player2) }),
+            new Rowman({ controller: controller.player3, boat: this.boatSprite, onShootArrow: () => this._resetShooter(controller.player3) }),
+            new Rowman({ controller: controller.player4, boat: this.boatSprite, onShootArrow: () => this._resetShooter(controller.player4) })
         ]
 
         
@@ -83,6 +83,18 @@ class Boat {
             // Boat dead!
             this._onDie()
         }
+    }
+
+    private _resetShooter(rowmanWhoShot: controller.Controller) {
+        // Reset the rowmen loading on the opposite side
+        if (rowmanWhoShot.playerIndex === 1 || rowmanWhoShot.playerIndex === 2) {
+            this._rowmen[1].resetArrow()
+            this._rowmen[0].resetArrow()
+        } else if (rowmanWhoShot.playerIndex === 3 || rowmanWhoShot.playerIndex === 4) {
+            this._rowmen[2].resetArrow()
+            this._rowmen[3].resetArrow()
+        }
+        
     }
 
     public onUpdate({ activeEnemy }: { activeEnemy: EnemyBoat }) {

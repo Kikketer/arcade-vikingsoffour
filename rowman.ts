@@ -15,10 +15,16 @@ class Rowman {
     // Increase load interval every X (and not before)
     private _arrowLoadInterval: number = 500
     public canShoot: boolean = false
+    private _onShootArrow: () => void
     
-    constructor({ controller, boat }: { controller: controller.Controller, boat: Sprite }) {
+    constructor({ controller, boat, onShootArrow }: { 
+            controller: controller.Controller, 
+            boat: Sprite, 
+            onShootArrow: () => void 
+        }) {
         this._controller = controller
         this._boat = boat
+        this._onShootArrow = onShootArrow
         this._sprite = sprites.create(assets.image`oarStraight`)
         this._sprite.z = 51
 
@@ -31,19 +37,12 @@ class Rowman {
         this._controller.onButtonEvent(ControllerButton.B, ControllerButtonEvent.Pressed, function () { 
             if (this.canShoot) {
                 this._shootArrow()
-            } else {
+            } else if (!this._isShooter) {
                 this._loadArrow()
+            } else {
+                console.log('You do nothing...')
             }
         })
-
-        // See if we should remove this, if we kill a rowman will this continue?
-        // game.onUpdateInterval(this._arrowLoadInterval, () => {
-        //     // Decrement the loadStage if not already zero
-        //     this.loadingStage -= 1
-        //     if (this.loadingStage < 0) {
-        //         this.loadingStage = 0
-        //     }
-        // })
     }
 
     public onUpdate({ activeEnemy }: { activeEnemy: EnemyBoat }) {
@@ -60,6 +59,12 @@ class Rowman {
                 this._loadSprite.setImage(assets.image`canShoot`)
             }
         } else {
+            // Decrease if beyond the load start time
+            if (game.runtime() > this._loadStartTime + this._arrowLoadInterval) {
+                this.loadingStage = this.loadingStage - 1
+                if (this.loadingStage < 0) this.loadingStage = 0
+            }
+            
             // Loading display
             if (this.loadingStage === 0) {
                 this._loadSprite.setImage(assets.image`fillEmpty`)
@@ -74,18 +79,18 @@ class Rowman {
 
         // Make sure the oar stays attached :)
         if (this._controller.playerIndex === 1) {
-            this._sprite.setPosition(this._boat.x - (this._boat.width / 2) - 3, this._boat.y)
+            this._sprite.setPosition(this._boat.x - (this._boat.width / 2), this._boat.y - 4)
             this._loadSprite.setPosition(scene.cameraProperty(CameraProperty.Left) + 10, scene.cameraProperty(CameraProperty.Top) + 8)
             // TEMP:
-            this.loadingStage = 3
+            // this.loadingStage = 3
         } else if (this._controller.playerIndex === 2) {
-            this._sprite.setPosition(this._boat.x + (this._boat.width / 2) + 3, this._boat.y)
+            this._sprite.setPosition(this._boat.x + (this._boat.width / 2), this._boat.y - 4)
             this._loadSprite.setPosition(scene.cameraProperty(CameraProperty.Right) - 10, scene.cameraProperty(CameraProperty.Top) + 8)
         } else if (this._controller.playerIndex === 3) {
-            this._sprite.setPosition(this._boat.x - (this._boat.width / 2) - 3, this._boat.y + 8)
+            this._sprite.setPosition(this._boat.x - (this._boat.width / 2), this._boat.y + 6)
             this._loadSprite.setPosition(scene.cameraProperty(CameraProperty.Left) + 10, scene.cameraProperty(CameraProperty.Bottom) - 8)
         } else if (this._controller.playerIndex === 4) {
-            this._sprite.setPosition(this._boat.x + (this._boat.width / 2) + 3, this._boat.y + 8)
+            this._sprite.setPosition(this._boat.x + (this._boat.width / 2), this._boat.y + 6)
             this._loadSprite.setPosition(scene.cameraProperty(CameraProperty.Right) - 10, scene.cameraProperty(CameraProperty.Bottom) - 8)
         }
 
@@ -129,21 +134,26 @@ class Rowman {
         }
     }
 
+    public resetArrow() {
+        this._loadStartTime = 0
+        this.loadingStage = 0
+        this.canShoot = false
+    }
+
     private _loadArrow() {
         console.log(`loading arrow at: ${this._loadStartTime} - ${this.loadingStage}`)
         if (this._loadStartTime === 0) {
+            // Start loading the arrow for the other side
+            this.loadingStage = 1
+            this._loadStartTime = game.runtime() + this._arrowLoadInterval
+        } else {
             // If you push too fast it'll reset!
-            if (this.loadingStage > 1) {
+            if (game.runtime() < this._loadStartTime) {
                 console.log('Too fast!')
                 this.loadingStage = 0
                 this._loadStartTime = 0
                 return
             }
-
-            // Start loading the arrow for the other side
-            this.loadingStage = 1
-            this._loadStartTime = game.runtime() + this._arrowLoadInterval
-        } else if (game.runtime() > this._loadStartTime) {
             // If you push too late, you fail as well
             if (game.runtime() > this._loadStartTime + this._arrowLoadInterval) {
                 console.log('Too late!')
@@ -153,6 +163,7 @@ class Rowman {
             }
 
             this.loadingStage = this.loadingStage + 1
+            this._loadStartTime = game.runtime() + this._arrowLoadInterval
             if (this.loadingStage > 3) {
                 this.loadingStage = 3
             }
@@ -160,9 +171,8 @@ class Rowman {
     }
 
     private _shootArrow() {
-        if (!this._isShooter) return
-
-        if (!this._sprite || 
+        if (!this._isShooter ||
+            !this._sprite ||
             !this._targetEnemy || 
             !this._targetEnemy.enemySprite || 
             this._arrow) {
@@ -188,9 +198,13 @@ class Rowman {
             this._arrow.follow(this._targetEnemy.enemySprite, 40)
         } else if (this._isLeftRowman) {
             // Or just fling an arrow
+            // This isn't really used now since you load if you are not on the side of the enemy
+            // Keeping for future
             this._arrow.vx = -40
         } else {
             this._arrow.vx = 40
         }
+
+        this._onShootArrow()
     }
 }
