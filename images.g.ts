@@ -3,15 +3,6 @@ namespace myImages {
 
     helpers._registerFactory("image", function(name: string) {
         switch(helpers.stringTrim(name)) {
-            case "image2":
-            case "waves":return img`
-. . . . . . . . . . . . . . . 
-. . . . . . . . . . . d . . . 
-. . . . . . . d d d d . d d d 
-. . . . d . . . . . . . . . . 
-. . . d . d . . . . . . . . . 
-d d d . . . d d d . . . . . . 
-`;
             case "image3":
             case "enemyBoat":return img`
 . . . . . . . . . . . . . . . . 
@@ -30,68 +21,6 @@ d d d . . . d d d . . . . . .
 . . . . . . . 4 4 . . . . . . . 
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
-`;
-            case "image4":
-            case "oarDown":return img`
-. . . . . 
-. . . . . 
-. . . . e 
-. . . e e 
-. . e e . 
-. e e . . 
-`;
-            case "image5":
-            case "oarUp":return img`
-. e e . . 
-. . e e . 
-. . . e e 
-. . . . e 
-. . . . . 
-. . . . . 
-`;
-            case "image6":
-            case "oarStraight":return img`
-. . . . . 
-. . . . . 
-e e e e e 
-. . . . . 
-. . . . . 
-. . . . . 
-`;
-            case "image1":
-            case "boat":return img`
-. . . . . f f . . . . . 
-. . . . f f f f . . . . 
-. . . . f f f f . . . . 
-. . . f f 3 3 f f . . . 
-. . . f f 3 3 f f f . . 
-. . f f 3 3 3 3 f f . . 
-. . f f 3 3 3 3 f f . . 
-. f f 3 3 3 3 3 3 f f . 
-. f f 3 3 3 3 3 3 f f . 
-. f f 3 3 3 3 3 3 f f . 
-f f f 3 3 3 3 3 3 f f f 
-f f 3 3 3 3 3 3 3 3 f f 
-f f 3 3 3 3 3 3 3 3 f f 
-f f 3 3 3 3 3 3 3 3 f f 
-f f 3 3 3 3 3 3 3 3 f f 
-f f 3 3 3 3 3 3 3 3 f f 
-f f 3 3 3 3 3 3 3 3 f f 
-f f 3 3 3 3 3 3 3 3 f f 
-f f 3 3 3 3 3 3 3 3 f f 
-f f 3 3 3 3 3 3 3 3 f f 
-f f 3 3 3 3 3 3 3 3 f f 
-f f f 3 3 3 3 3 3 f f f 
-. f f f f f f f f f f . 
-. . . f f f f f f . . . 
-`;
-            case "image7":
-            case "arrowLeft":return img`
-. . . . . . . 1 1 1 1 
-. 1 . . . . 1 1 1 1 . 
-1 1 3 3 3 3 3 3 3 . . 
-. 1 . . . . 1 1 1 1 . 
-. . . . . . . 1 1 1 1 
 `;
             case "image8":
             case "shore":return img`
@@ -147,28 +76,101 @@ ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 .......f.......
 .......f.......
 `;
+            case "image2":
+            case "waves":return img`
+. . . . . . . . . . . . . . . 
+. . . . . . . . . . . e . . . 
+. . . . . . . e e e e . e e e 
+. . . . e . . . . . . . . . . 
+. . . e . e . . . . . . . . . 
+e e e . . . e e e . . . . . . 
+`;
+            case "image4":
+            case "oarDown":return img`
+. . . . . 
+. . . . . 
+. . . . 6 
+. . . 6 6 
+. . 6 6 . 
+. 6 6 . . 
+`;
+            case "image5":
+            case "oarUp":return img`
+. 6 6 . . 
+. . 6 6 . 
+. . . 6 6 
+. . . . 6 
+. . . . . 
+. . . . . 
+`;
+            case "image6":
+            case "oarStraight":return img`
+. . . . . 
+. . . . . 
+6 6 6 6 6 
+. . . . . 
+. . . . . 
+. . . . . 
+`;
+            case "image7":
+            case "arrowLeft":return img`
+. . . . . . . 1 1 1 1 
+. 1 . . . . 1 1 1 1 . 
+1 1 5 5 5 5 5 5 5 . . 
+. 1 . . . . 1 1 1 1 . 
+. . . . . . . 1 1 1 1 
+`;
+            case "image1":
+            case "readyCheck":return img`
+. b b b b . 
+b b b b b 1 
+b b b b 1 b 
+b 1 b 1 b b 
+b b 1 b b b 
+. b b b b . 
+`;
+            case "image10":
+            case "fillEmpty":return img`
+. 3 3 3 3 3 3 3 3 3 3 3 3 3 3 . 
+3 . . . . . . . . . . . . . . 3 
+3 . . . . . . . . . . . . . . 3 
+3 . . . . . . . . . . . . . . 3 
+3 . . . . . . . . . . . . . . 3 
+. 3 3 3 3 3 3 3 3 3 3 3 3 3 3 . 
+`;
+            case "image11":
+            case "fillMid":return img`
+. 3 3 3 3 3 3 3 3 3 3 3 3 3 3 . 
+3 4 4 4 4 4 4 4 . . . . . . . 3 
+3 4 4 4 4 4 4 4 . . . . . . . 3 
+3 4 4 4 4 4 4 4 . . . . . . . 3 
+3 4 4 4 4 4 4 4 . . . . . . . 3 
+. 3 3 3 3 3 3 3 3 3 3 3 3 3 3 . 
+`;
+            case "image12":
+            case "fillAlmost":return img`
+. 3 3 3 3 3 3 3 3 3 3 3 3 3 3 . 
+3 5 5 5 5 5 5 5 5 5 5 5 5 5 . 3 
+3 5 5 5 5 5 5 5 5 5 5 5 5 5 . 3 
+3 5 5 5 5 5 5 5 5 5 5 5 5 5 . 3 
+3 5 5 5 5 5 5 5 5 5 5 5 5 5 . 3 
+. 3 3 3 3 3 3 3 3 3 3 3 3 3 3 . 
+`;
+            case "image13":
+            case "fillFull":return img`
+. 3 3 3 3 3 3 3 3 3 3 3 3 3 3 . 
+3 b b b b b b b b b b b b b b 3 
+3 b b b b b b b b b b b b b b 3 
+3 b b b b b b b b b b b b b b 3 
+3 b b b b b b b b b b b b b b 3 
+. 3 3 3 3 3 3 3 3 3 3 3 3 3 3 . 
+`;
         }
         return null;
     })
 
     helpers._registerFactory("animation", function(name: string) {
         switch(helpers.stringTrim(name)) {
-            case "waveAnimation":
-            case "anim1":return [img`
-. . . . . . . . . . . . . . . 
-. . . . . . . . . . . d . . . 
-. . . . . . . d d d d . d d d 
-. . . . d . . . . . . . . . . 
-. . . d . d . . . . . . . . . 
-d d d . . . d d d . . . . . . 
-`, img`
-. . . . . . . . . . . . . . . 
-. . . . . . . . . . d . . . . 
-. . . . . . . . d d . d d d d 
-. . . . . . . . . . . . . . . 
-. . . . d d d . . . . . . . . 
-. d d d . . . d d . . . . . . 
-`];
             case "Wind":
             case "anim4":return [img`
 .......f.......
@@ -302,6 +304,22 @@ d d d . . . d d d . . . . . .
 .......f.......
 .......f.......
 .......f.......
+`];
+            case "waveAnimation":
+            case "anim1":return [img`
+. . . . . . . . . . . . . . . 
+. . . . . . . . . . . e . . . 
+. . . . . . . e e e e . e e e 
+. . . . e . . . . . . . . . . 
+. . . e . e . . . . . . . . . 
+e e e . . . e e e . . . . . . 
+`, img`
+. . . . . . . . . . . . . . . 
+. . . . . . . . . . e . . . . 
+. . . . . . . . e e . e e e e 
+. . . . . . . . . . . . . . . 
+. . . . e e e . . . . . . . . 
+. e e e . . . e e . . . . . . 
 `];
         }
         return null;

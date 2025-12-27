@@ -1,11 +1,17 @@
 class Rowman {   
     public oarDirection: number = 0
+    static loadIncrementTime: number = 400
     
     private _controller: controller.Controller = null
     private _sprite: Sprite = null
     private _boat: Sprite = null
     private _arrow: Sprite = null
     private _targetEnemy: EnemyBoat = null
+    private _loadSprite: Sprite = null
+    private _loadStartTime: number = 0
+    public loadingStage: number = 0
+    private _isLeftRowman: boolean = false
+    public canShoot: boolean = false
     
     constructor({ controller, boat }: { controller: controller.Controller, boat: Sprite }) {
         this._controller = controller
@@ -13,24 +19,76 @@ class Rowman {
         this._sprite = sprites.create(assets.image`oarStraight`)
         this._sprite.z = 51
 
-        this._controller.onButtonEvent(ControllerButton.B, ControllerButtonEvent.Pressed, function () { this._shootArrow() })
+        this._loadSprite = sprites.create(assets.image`fillEmpty`)
+        this._loadSprite.z = 100
+
+        // Odd rowmen are on the left
+        this._isLeftRowman = controller.playerIndex % 2 === 1
+
+        this._controller.onButtonEvent(ControllerButton.B, ControllerButtonEvent.Pressed, function () { 
+            if (this.canShoot) {
+                this._shootArrow()
+            }
+        })
     }
 
     public onUpdate({ activeEnemy }: { activeEnemy: EnemyBoat }) {
         if (!this._controller) return
         this._targetEnemy = activeEnemy
 
+        // Enemy on the left, left players only launch arrows not load
+        if ((this._isLeftRowman && this._targetEnemy.enemySprite.x < this._boat.x) || 
+            (!this._isLeftRowman && this._targetEnemy.enemySprite.x > this._boat.x)) {
+            // this.canShoot = true
+        } else {
+            // Loading display
+            if (this.loadingStage === 0) {
+                this._loadSprite.setImage(assets.image`fillEmpty`)
+            } else if (this.loadingStage === 1) {
+                this._loadSprite.setImage(assets.image`fillMid`)
+            } else if (this.loadingStage === 2) {
+                this._loadSprite.setImage(assets.image`fillAlmost`)
+            } else if (this.loadingStage === 3) {
+                this._loadSprite.setImage(assets.image`fillFull`)
+            }
+
+            // Load increment
+            if (this._controller.B.isPressed()) {
+                if (this._loadStartTime === 0) {
+                    // We are starting fresh
+                    this._loadStartTime = game.runtime()
+                } else if (game.runtime() - this._loadStartTime > 1200) {
+                    // This is held...
+                    this.loadingStage = 3
+                } else if (game.runtime() - this._loadStartTime > 600) {
+                    this.loadingStage = 2
+                } else if (game.runtime() - this._loadStartTime > 300) {
+                    this.loadingStage = 1
+                }
+            } else {
+                this.loadingStage = 0
+                this._loadStartTime = 0
+            }
+        }
+
         // Make sure the oar stays attached :)
         if (this._controller.playerIndex === 1) {
             this._sprite.setPosition(this._boat.x - (this._boat.width / 2) - 3, this._boat.y)
+            this._loadSprite.setPosition(scene.cameraProperty(CameraProperty.Left) + 10, scene.cameraProperty(CameraProperty.Top) + 8)
+            // TEMP:
+            this.loadingStage = 3
         } else if (this._controller.playerIndex === 2) {
             this._sprite.setPosition(this._boat.x + (this._boat.width / 2) + 3, this._boat.y)
+            this._loadSprite.setPosition(scene.cameraProperty(CameraProperty.Right) - 10, scene.cameraProperty(CameraProperty.Top) + 8)
         } else if (this._controller.playerIndex === 3) {
             this._sprite.setPosition(this._boat.x - (this._boat.width / 2) - 3, this._boat.y + 8)
+            this._loadSprite.setPosition(scene.cameraProperty(CameraProperty.Left) + 10, scene.cameraProperty(CameraProperty.Bottom) - 8)
         } else if (this._controller.playerIndex === 4) {
             this._sprite.setPosition(this._boat.x + (this._boat.width / 2) + 3, this._boat.y + 8)
+            this._loadSprite.setPosition(scene.cameraProperty(CameraProperty.Right) - 10, scene.cameraProperty(CameraProperty.Bottom) - 8)
         }
 
+        // Oar move
         if (this._controller.dy() < 0 && this.oarDirection >= 0) {
             // UP:
             this.oarDirection = -1

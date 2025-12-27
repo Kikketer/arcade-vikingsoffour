@@ -16,10 +16,9 @@ class Boat {
     private _bottomLoaded: boolean = false
 
     constructor({ onDie }: { onDie: () => void }) {
-        this._health = 10
         this._onDie = onDie
         this.boatSprite = sprites.create(this._boatImage, SpriteKind.Player)
-        this.boatSprite.setPosition(80, 100)
+        this.boatSprite.setPosition(80, 0)
         this.boatSprite.z = 50
 
         // And create the rowmen:
@@ -107,6 +106,22 @@ class Boat {
 
     public onUpdate({ activeEnemy }: { activeEnemy: EnemyBoat }) {
         this._activeEnemy = activeEnemy
+        
+        // Top can fire:
+        if (this._rowmen[0].loadingStage === 3) {
+            this._rowmen[1].canShoot = true
+        }
+        if (this._rowmen[1].loadingStage === 3) {
+            this._rowmen[0].canShoot = true
+        }
+        // Bottom can fire:
+        if (this._rowmen[2].loadingStage === 3) {
+            this._rowmen[3].canShoot = true
+        }
+        if (this._rowmen[3].loadingStage === 3) {
+            this._rowmen[2].canShoot = true
+        }
+
         for (let i = 0; i < this._rowmen.length; i++) {
             this._rowmen[i].onUpdate({ activeEnemy })
         }
@@ -150,6 +165,8 @@ class Boat {
         // Compare the factors to determine if we turn left or right
         const resultingFactor = leftSideFactor - rightSideFactor
         this.boatSprite.vx = 2 * resultingFactor
+
+        this.boatSprite.vy = -5
 
         if (
             resultingFactor === 0 &&

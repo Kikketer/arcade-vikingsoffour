@@ -12,10 +12,10 @@ class EnemyBoat {
         this.enemySprite.z = 50
         this._nextShotTime = game.runtime() + Math.floor(Math.random() * 3000) + 5000
         // Spawn the sprite off screen
-        const spawnSide = Math.floor(Math.random() * 3)
+        const spawnSide = Math.floor(Math.random() * 2) + 1
         switch (spawnSide) {
             case 0:
-                // Top
+                // Top (not used today...)
                 this.enemySprite.setPosition(
                     Math.floor(Math.random() * 160) +
                         (this._followSprite.x - 80),

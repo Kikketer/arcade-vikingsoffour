@@ -12,7 +12,7 @@ class Ocean {
     private _onComplete: (win: boolean) => void = () => {}
 
     constructor({ onComplete }: { onComplete: (win: boolean) => void }) {
-        scene.setBackgroundColor(11)
+        scene.setBackgroundColor(13)
         this.createInitialWaves()
         this._onComplete = onComplete
         this._boat = new Boat({ onDie: () => this._onComplete(false) })
@@ -50,7 +50,7 @@ class Ocean {
             const spriteToCreate = new Sprite(assets.image`waves`)
             // Place the wave in a random spot on the active screen
             const xPos = Math.floor(Math.random() * 160)
-            const yPos = Math.floor(Math.random() * 120)
+            const yPos = Math.floor(Math.random() * 120) - 70
             // Destroy when leaving the screen
             spriteToCreate.setFlag(SpriteFlag.AutoDestroy, true)
             spriteToCreate.setPosition(xPos, yPos)
