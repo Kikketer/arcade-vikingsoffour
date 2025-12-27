@@ -1,6 +1,7 @@
 class EnemyBoat {
     public enemySprite: Sprite = null
     private _followSprite: Sprite = null
+    private _health: number = 3
 
     constructor({ followTarget }: { followTarget: Sprite }) {
         this._followSprite = followTarget
@@ -40,6 +41,8 @@ class EnemyBoat {
     }
 
     public onUpdate() {
+        if (!this.enemySprite) return
+        
         if (
             Utils.getDistanceBetweenSprites({
                 spriteA: this.enemySprite,
@@ -53,5 +56,19 @@ class EnemyBoat {
         }
     }
 
-    public destroy() {}
+    public destroy() {
+        sprites.destroy(this.enemySprite)
+        this.enemySprite = null
+    }
+
+    public hit({ damage }: { damage: number }) {
+        console.logValue('HIT!', this._health)
+        this._health -= damage
+        if (this._health <= 0) {
+            this.enemySprite.startEffect(effects.fire, 500)
+            setTimeout(() => {
+                this.destroy()
+            }, 400)
+        }
+    }
 }

@@ -1,4 +1,5 @@
 const ocean = new Ocean()
+let activeEnemy: EnemyBoat = null
 music.play(music.createSong(assets.song`Boat 1`), music.PlaybackMode.LoopingInBackground)
 // let mySprite = sprites.create(assets.image`enemyBoat`, SpriteKind.Player)
 // mySprite.setVelocity(50, 50)

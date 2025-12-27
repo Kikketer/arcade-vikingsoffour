@@ -5,6 +5,7 @@ class Rowman {
     private _sprite: Sprite = null
     private _boat: Sprite = null
     private _arrow: Sprite = null
+    private _targetEnemy: EnemyBoat = null
     
     constructor({ controller, boat }: { controller: controller.Controller, boat: Sprite }) {
         this._controller = controller
@@ -15,8 +16,9 @@ class Rowman {
         this._controller.onButtonEvent(ControllerButton.B, ControllerButtonEvent.Pressed, function () { this._shootArrow() })
     }
 
-    public onUpdate() {
+    public onUpdate({ activeEnemy }: { activeEnemy: EnemyBoat }) {
         if (!this._controller) return
+        this._targetEnemy = activeEnemy
 
         // Make sure the oar stays attached :)
         if (this._controller.playerIndex === 1) {
@@ -50,8 +52,9 @@ class Rowman {
         }
 
         // Arrow destroy!
-        if (this._arrow && this._arrow.overlapsWith(Ocean.activeEnemy.enemySprite)) {
+        if (this._arrow && this._arrow.overlapsWith(this._targetEnemy.enemySprite)) {
             sprites.destroy(this._arrow)
+            this._targetEnemy.hit({ damage: 1 })
         }
     }
 
@@ -63,7 +66,7 @@ class Rowman {
     }
 
     private _shootArrow() {
-        if (!Ocean.activeEnemy || this._arrow) return
+        if (!this._targetEnemy || !this._targetEnemy.enemySprite || this._arrow) return
 
         // Check to see if there are any enemies on your side
         const isLeftSide = this._controller.playerIndex % 2 === 1
@@ -75,13 +78,13 @@ class Rowman {
             this._arrow = null
         })
 
-        if (isLeftSide && Ocean.activeEnemy.enemySprite.x <= this._boat.x) {
+        if (isLeftSide && this._targetEnemy.enemySprite.x <= this._boat.x) {
             // Fire arrow at the enemy!    
-            this._arrow.follow(Ocean.activeEnemy.enemySprite, 40)
-        } else if (!isLeftSide && Ocean.activeEnemy.enemySprite.x >= this._boat.x) {
+            this._arrow.follow(this._targetEnemy.enemySprite, 40)
+        } else if (!isLeftSide && this._targetEnemy.enemySprite.x >= this._boat.x) {
             // Shoot right
             this._arrow.image.flipX()
-            this._arrow.follow(Ocean.activeEnemy.enemySprite, 40)
+            this._arrow.follow(this._targetEnemy.enemySprite, 40)
         } else if (isLeftSide) {
             this._arrow.vx = -40
         } else if (!isLeftSide) {

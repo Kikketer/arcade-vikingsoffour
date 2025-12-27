@@ -6,7 +6,7 @@ class Ocean {
     private _boat: Boat = null
     // The last line we added waves to (so we don't repeat)
     private _lastWaveLine: number = 0
-    static activeEnemy: EnemyBoat = null
+    private _activeEnemy: EnemyBoat = null
     private _nextEnemySpawn: number = 0
 
     constructor() {
@@ -18,7 +18,7 @@ class Ocean {
         this._lastWaveLine = this._boat.boatSprite.y
         scene.cameraFollowSprite(this._boat.boatSprite)
 
-        Ocean.activeEnemy = new EnemyBoat({
+        this._activeEnemy = new EnemyBoat({
             followTarget: this._boat.boatSprite
         })
 
@@ -68,7 +68,9 @@ class Ocean {
 
     public onUpdate() {
         if (this._boat) {
-            this._boat.onUpdate()
+            this._boat.onUpdate({
+                activeEnemy: this._activeEnemy
+            })
             // Add more waves if we have gone X pixels beyond last Check
             if (
                 Math.abs(this._boat.boatSprite.y - this._lastWaveLine) >
@@ -79,11 +81,10 @@ class Ocean {
             }
         }
 
-        if (Ocean.activeEnemy) {
-            Ocean.activeEnemy.onUpdate()
+        if (this._activeEnemy) {
+            this._activeEnemy.onUpdate()
         } else if (game.runtime() > this._nextEnemySpawn) {
-            console.log('Creating enemy boat!')
-            Ocean.activeEnemy = new EnemyBoat({
+            this._activeEnemy = new EnemyBoat({
                 followTarget: this._boat.boatSprite
             })
             // Schedule next spawn

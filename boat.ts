@@ -65,9 +65,9 @@ class Boat {
         this._shoutSprite.z = 51
     }
 
-    public onUpdate() {
+    public onUpdate({ activeEnemy }: { activeEnemy: EnemyBoat }) {
         for (let i = 0; i < this._rowmen.length; i++) {
-            this._rowmen[i].onUpdate()
+            this._rowmen[i].onUpdate({ activeEnemy })
         }
 
         if (game.runtime() - this._lastChangeMillis > this._rythmRate) {
