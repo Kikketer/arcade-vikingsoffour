@@ -8,11 +8,15 @@ class Ocean {
     private _lastWaveLine: number = 0
     private _activeEnemy: EnemyBoat = null
     private _nextEnemySpawn: number = 0
+    private _shoreLine: number = -100
+    private _onComplete: (win: boolean) => void = () => {}
 
-    constructor() {
+    constructor({ onComplete }: { onComplete: (win: boolean) => void }) {
         scene.setBackgroundColor(11)
         this.createInitialWaves()
-        this._boat = new Boat()
+        this._onComplete = onComplete
+        this._boat = new Boat({ onDie: () => this._onComplete(false) })
+        
         // Set the initial wave line to the active boat location
         // We only need to see it change to decide if waves should be added
         this._lastWaveLine = this._boat.boatSprite.y
@@ -25,6 +29,18 @@ class Ocean {
         // Decide when the next enemy should spawn
         this._nextEnemySpawn =
             game.runtime() + Math.floor(Math.random() * 5000) + 5000
+    }
+
+    public destroy() {
+        if (this._boat) {
+            this._boat.destroy()
+            this._boat = null
+        }
+
+        if (this._activeEnemy) {
+            this._activeEnemy.destroy()
+            this._activeEnemy = null
+        }
     }
 
     // Used for initial draw of the Ocean
@@ -74,16 +90,30 @@ class Ocean {
             // Add more waves if we have gone X pixels beyond last Check
             if (
                 Math.abs(this._boat.boatSprite.y - this._lastWaveLine) >
-                Math.floor(Math.random() * 5) + 10
+                Math.floor(Math.random() * 5) + 10 && 
+                this._boat.boatSprite.y > this._shoreLine
             ) {
                 this._lastWaveLine = this._boat.boatSprite.y
                 this.addMoreWaves()
+            }
+
+            // Check to see if we can see the shore
+            if (this._boat.boatSprite.y < this._shoreLine) {
+                const shore = image.create(160, 70)
+                shore.fillRect(0, 0, 160, (this._boat.boatSprite.y - this._shoreLine) * -1, 15)
+                scene.setBackgroundImage(shore)
+            }
+
+            // And check for end-game
+            if (this._boat.boatSprite.y < this._shoreLine - 50) {
+                this._onComplete(true)
             }
         }
 
         if (this._activeEnemy) {
             this._activeEnemy.onUpdate()
-        } else if (game.runtime() > this._nextEnemySpawn) {
+        } else if (game.runtime() > this._nextEnemySpawn && this._boat) {
+            console.log(`The active enemy ${!!this._activeEnemy}`)
             this._activeEnemy = new EnemyBoat({
                 followTarget: this._boat.boatSprite
             })

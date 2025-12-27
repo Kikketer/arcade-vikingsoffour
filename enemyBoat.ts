@@ -2,12 +2,15 @@ class EnemyBoat {
     public enemySprite: Sprite = null
     private _followSprite: Sprite = null
     private _health: number = 3
+    private _nextShotTime: number = 0
+    private _arrow: Sprite = null
 
     constructor({ followTarget }: { followTarget: Sprite }) {
         this._followSprite = followTarget
         // When creating a new enemy boat, pick a random side to spawn on
         this.enemySprite = sprites.create(assets.image`enemyBoat`)
         this.enemySprite.z = 50
+        this._nextShotTime = game.runtime() + Math.floor(Math.random() * 3000) + 5000
         // Spawn the sprite off screen
         const spawnSide = Math.floor(Math.random() * 3)
         switch (spawnSide) {
@@ -54,15 +57,33 @@ class EnemyBoat {
         } else {
             this.enemySprite.follow(this._followSprite, 5)
         }
+
+        // And shoot!
+        if (!this._arrow && this._nextShotTime < game.runtime()) {
+            this._nextShotTime = game.runtime() + Math.floor(Math.random() * 2000) + 4000
+            this._arrow = sprites.create(assets.image`arrowLeft`, SpriteKind.EnemyArrow)
+            if (this.enemySprite.x < this._followSprite.x) {
+                this._arrow.image.flipX()
+            }
+            this._arrow.setPosition(this.enemySprite.x, this.enemySprite.y)
+            this._arrow.setFlag(SpriteFlag.AutoDestroy, true)
+            this._arrow.follow(this._followSprite, 100)
+        }
     }
 
     public destroy() {
-        sprites.destroy(this.enemySprite)
-        this.enemySprite = null
+        if (this.enemySprite) {
+            sprites.destroy(this.enemySprite)
+            this.enemySprite = null
+        }
+
+        if (this._arrow) {
+            sprites.destroy(this._arrow)
+            this._arrow = null
+        }
     }
 
     public hit({ damage }: { damage: number }) {
-        console.logValue('HIT!', this._health)
         this._health -= damage
         if (this._health <= 0) {
             this.enemySprite.startEffect(effects.fire, 500)

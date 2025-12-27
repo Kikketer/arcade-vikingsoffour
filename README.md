@@ -6,8 +6,7 @@ The 4 player viking game primarily used as a test for the 4 player setup of my a
 
 ## TODO:
 
-- Single tilemap for the "ocean"
-- Enemies randomly float about but will head to you if you are close
+- Have the other side of the boat load while the other shoots
 - Once all enemies are dead you move to the next level
 
 ## Crazy Idea Pile

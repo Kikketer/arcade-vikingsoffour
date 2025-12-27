@@ -1,6 +1,6 @@
 class Boat {
     public boatSprite: Sprite = null
-    private _health = 10
+    private _health = 3
     private _boatImage: Image = assets.image`boat`
     // Half second per "beat"
     private _rythmRate: number = 1000
@@ -10,9 +10,13 @@ class Boat {
     private _lastChangeMillis: number = game.runtime()
     private _shoutSprite: Sprite = null
     private _rowmen: Rowman[] = null
+    private _onDie: () => void
+    private _topLoaded: boolean = false
+    private _bottomLoaded: boolean = false
 
-    constructor() {
+    constructor({ onDie }: { onDie: () => void }) {
         this._health = 10
+        this._onDie = onDie
         this.boatSprite = sprites.create(this._boatImage, SpriteKind.Player)
         this.boatSprite.setPosition(80, 100)
         this.boatSprite.z = 50
@@ -24,6 +28,13 @@ class Boat {
             new Rowman({ controller: controller.player3, boat: this.boatSprite }),
             new Rowman({ controller: controller.player4, boat: this.boatSprite })
         ]
+
+        
+        sprites.onOverlap(SpriteKind.Player, SpriteKind.EnemyArrow, (boat: Sprite, arrow: Sprite) => {
+            scene.cameraShake(3)
+            sprites.destroy(arrow)
+            this._hit()
+        })
     }
 
     public destroy() {
@@ -31,7 +42,9 @@ class Boat {
             rowman.destroy()
         }
         sprites.destroy(this._shoutSprite)
+        this._shoutSprite = null
         sprites.destroy(this.boatSprite)
+        this.boatSprite = null
     }
 
     // Get the player row factor
@@ -63,6 +76,15 @@ class Boat {
             this.boatSprite.y - 15
         )
         this._shoutSprite.z = 51
+    }
+
+    private _hit() {
+        this._health -= 1
+
+        if (this._health <= 0) {
+            // Boat dead!
+            this._onDie()
+        }
     }
 
     public onUpdate({ activeEnemy }: { activeEnemy: EnemyBoat }) {
@@ -109,6 +131,8 @@ class Boat {
         // Compare the factors to determine if we turn left or right
         const resultingFactor = leftSideFactor - rightSideFactor
         this.boatSprite.vx = 2 * resultingFactor
+
+        this.boatSprite.vy = -10
 
         if (
             resultingFactor === 0 &&

@@ -59,14 +59,24 @@ class Rowman {
     }
 
     public destroy() {
-        sprites.destroy(this._sprite)
-        this._sprite = null
-        sprites.destroy(this._arrow)
-        this._arrow = null
+        if (this._sprite) {
+            sprites.destroy(this._sprite)
+            this._sprite = null
+        }
+        
+        if (this._arrow) {
+            sprites.destroy(this._arrow)
+            this._arrow = null
+        }
     }
 
     private _shootArrow() {
-        if (!this._targetEnemy || !this._targetEnemy.enemySprite || this._arrow) return
+        if (!this._sprite || 
+            !this._targetEnemy || 
+            !this._targetEnemy.enemySprite || 
+            this._arrow) {
+                return
+            }
 
         // Check to see if there are any enemies on your side
         const isLeftSide = this._controller.playerIndex % 2 === 1
