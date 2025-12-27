@@ -12,8 +12,6 @@ class Boat {
     private _rowmen: Rowman[] = null
     private _onDie: () => void
     private _activeEnemy: EnemyBoat = null
-    private _topLoaded: boolean = false
-    private _bottomLoaded: boolean = false
 
     constructor({ onDie }: { onDie: () => void }) {
         this._onDie = onDie
@@ -73,13 +71,13 @@ class Boat {
 
         const enemyOnLeft = this._activeEnemy.enemySprite.x < this.boatSprite.x
         if (!enemyOnLeft && loader.playerIndex === 1) {
-            this._topLoaded = true
+            // this._topLoaded = true
         } else if (!enemyOnLeft && loader.playerIndex === 3) {
-            this._bottomLoaded = true
+            // this._bottomLoaded = true
         } else if (enemyOnLeft && loader.playerIndex === 2) {
-            this._topLoaded = true
+            // this._topLoaded = true
         } else if (enemyOnLeft && loader.playerIndex === 4) {
-            this._bottomLoaded = true
+            // this._bottomLoaded = true
         }
     }
 
