@@ -64,23 +64,6 @@ class Boat {
         return 0
     }
 
-    private _loadArrow(loader: controller.Controller) {
-        // Determine where the current active enemy is
-        // If on the opposite side of the controller, mark as loaded
-        if (!this._activeEnemy) return
-
-        const enemyOnLeft = this._activeEnemy.enemySprite.x < this.boatSprite.x
-        if (!enemyOnLeft && loader.playerIndex === 1) {
-            // this._topLoaded = true
-        } else if (!enemyOnLeft && loader.playerIndex === 3) {
-            // this._bottomLoaded = true
-        } else if (enemyOnLeft && loader.playerIndex === 2) {
-            // this._topLoaded = true
-        } else if (enemyOnLeft && loader.playerIndex === 4) {
-            // this._bottomLoaded = true
-        }
-    }
-
     private _shoutDirection() {
         sprites.destroy(this._shoutSprite)
 

@@ -11,6 +11,9 @@ class Rowman {
     private _loadStartTime: number = 0
     public loadingStage: number = 0
     private _isLeftRowman: boolean = false
+    private _isShooter: boolean = false
+    // Increase load interval every X (and not before)
+    private _arrowLoadInterval: number = 500
     public canShoot: boolean = false
     
     constructor({ controller, boat }: { controller: controller.Controller, boat: Sprite }) {
@@ -28,8 +31,19 @@ class Rowman {
         this._controller.onButtonEvent(ControllerButton.B, ControllerButtonEvent.Pressed, function () { 
             if (this.canShoot) {
                 this._shootArrow()
+            } else {
+                this._loadArrow()
             }
         })
+
+        // See if we should remove this, if we kill a rowman will this continue?
+        // game.onUpdateInterval(this._arrowLoadInterval, () => {
+        //     // Decrement the loadStage if not already zero
+        //     this.loadingStage -= 1
+        //     if (this.loadingStage < 0) {
+        //         this.loadingStage = 0
+        //     }
+        // })
     }
 
     public onUpdate({ activeEnemy }: { activeEnemy: EnemyBoat }) {
@@ -37,9 +51,14 @@ class Rowman {
         this._targetEnemy = activeEnemy
 
         // Enemy on the left, left players only launch arrows not load
-        if ((this._isLeftRowman && this._targetEnemy.enemySprite.x < this._boat.x) || 
-            (!this._isLeftRowman && this._targetEnemy.enemySprite.x > this._boat.x)) {
-            // this.canShoot = true
+        if ((this._isLeftRowman && this._targetEnemy && this._targetEnemy.enemySprite && this._targetEnemy.enemySprite.x < this._boat.x) ||
+            (!this._isLeftRowman && this._targetEnemy && this._targetEnemy.enemySprite && this._targetEnemy.enemySprite.x > this._boat.x)) {
+            this._isShooter = true
+            this._loadSprite.setImage(assets.image`noShoot`)
+            
+            if (this.canShoot) {
+                this._loadSprite.setImage(assets.image`canShoot`)
+            }
         } else {
             // Loading display
             if (this.loadingStage === 0) {
@@ -50,24 +69,6 @@ class Rowman {
                 this._loadSprite.setImage(assets.image`fillAlmost`)
             } else if (this.loadingStage === 3) {
                 this._loadSprite.setImage(assets.image`fillFull`)
-            }
-
-            // Load increment
-            if (this._controller.B.isPressed()) {
-                if (this._loadStartTime === 0) {
-                    // We are starting fresh
-                    this._loadStartTime = game.runtime()
-                } else if (game.runtime() - this._loadStartTime > 1200) {
-                    // This is held...
-                    this.loadingStage = 3
-                } else if (game.runtime() - this._loadStartTime > 600) {
-                    this.loadingStage = 2
-                } else if (game.runtime() - this._loadStartTime > 300) {
-                    this.loadingStage = 1
-                }
-            } else {
-                this.loadingStage = 0
-                this._loadStartTime = 0
             }
         }
 
@@ -128,7 +129,39 @@ class Rowman {
         }
     }
 
+    private _loadArrow() {
+        console.log(`loading arrow at: ${this._loadStartTime} - ${this.loadingStage}`)
+        if (this._loadStartTime === 0) {
+            // If you push too fast it'll reset!
+            if (this.loadingStage > 1) {
+                console.log('Too fast!')
+                this.loadingStage = 0
+                this._loadStartTime = 0
+                return
+            }
+
+            // Start loading the arrow for the other side
+            this.loadingStage = 1
+            this._loadStartTime = game.runtime() + this._arrowLoadInterval
+        } else if (game.runtime() > this._loadStartTime) {
+            // If you push too late, you fail as well
+            if (game.runtime() > this._loadStartTime + this._arrowLoadInterval) {
+                console.log('Too late!')
+                this.loadingStage = 0
+                this._loadStartTime = 0
+                return
+            }
+
+            this.loadingStage = this.loadingStage + 1
+            if (this.loadingStage > 3) {
+                this.loadingStage = 3
+            }
+        }
+    }
+
     private _shootArrow() {
+        if (!this._isShooter) return
+
         if (!this._sprite || 
             !this._targetEnemy || 
             !this._targetEnemy.enemySprite || 
@@ -137,7 +170,6 @@ class Rowman {
             }
 
         // Check to see if there are any enemies on your side
-        const isLeftSide = this._controller.playerIndex % 2 === 1
         this._arrow = sprites.create(assets.image`arrowLeft`)
         this._arrow.setPosition(this._boat.x, this._boat.y)
         this._arrow.setFlag(SpriteFlag.AutoDestroy, true)
@@ -145,17 +177,19 @@ class Rowman {
         this._arrow.onDestroyed(() => {
             this._arrow = null
         })
+        // Flip art if needed
+        if (!this._isLeftRowman) {
+            // Flip the arrow if you are on right side
+            this._arrow.image.flipX()
+        }
 
-        if (isLeftSide && this._targetEnemy.enemySprite.x <= this._boat.x) {
+        if (this._isShooter) {
             // Fire arrow at the enemy!    
             this._arrow.follow(this._targetEnemy.enemySprite, 40)
-        } else if (!isLeftSide && this._targetEnemy.enemySprite.x >= this._boat.x) {
-            // Shoot right
-            this._arrow.image.flipX()
-            this._arrow.follow(this._targetEnemy.enemySprite, 40)
-        } else if (isLeftSide) {
+        } else if (this._isLeftRowman) {
+            // Or just fling an arrow
             this._arrow.vx = -40
-        } else if (!isLeftSide) {
+        } else {
             this._arrow.vx = 40
         }
     }

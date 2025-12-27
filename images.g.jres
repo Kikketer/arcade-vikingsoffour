@@ -39,11 +39,6 @@
         "mimeType": "image/x-mkcd-f4",
         "displayName": "arrowLeft"
     },
-    "image1": {
-        "data": "hwQGAAYAAACwuwsAuxu7ALu7sQC7G7sAu7G7ABC7CwA=",
-        "mimeType": "image/x-mkcd-f4",
-        "displayName": "readyCheck"
-    },
     "image10": {
         "data": "hwQQAAYAAAAwMwMAAwAwAAMAMAADADAAAwAwAAMAMAADADAAAwAwAAMAMAADADAAAwAwAAMAMAADADAAAwAwAAMAMAAwMwMA",
         "mimeType": "image/x-mkcd-f4",
@@ -63,6 +58,16 @@
         "data": "hwQQAAYAAAAwMwMAs7s7ALO7OwCzuzsAs7s7ALO7OwCzuzsAs7s7ALO7OwCzuzsAs7s7ALO7OwCzuzsAs7s7ALO7OwAwMwMA",
         "mimeType": "image/x-mkcd-f4",
         "displayName": "fillFull"
+    },
+    "image1": {
+        "data": "hwQGAAYAAACwuwsAuxu7ALu7sQC7G7sAu7G7ABC7CwA=",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "canShoot"
+    },
+    "image14": {
+        "data": "hwQGAAYAAACAiAgAGIiBAIgRiACIEYgAGIiBAICICAA=",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "noShoot"
     },
     "anim4": {
         "namespace": "myAnimations",

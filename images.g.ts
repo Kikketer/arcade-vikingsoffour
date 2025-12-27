@@ -120,15 +120,6 @@ e e e . . . e e e . . . . . .
 . 1 . . . . 1 1 1 1 . 
 . . . . . . . 1 1 1 1 
 `;
-            case "image1":
-            case "readyCheck":return img`
-. b b b b . 
-b b b b b 1 
-b b b b 1 b 
-b 1 b 1 b b 
-b b 1 b b b 
-. b b b b . 
-`;
             case "image10":
             case "fillEmpty":return img`
 . 3 3 3 3 3 3 3 3 3 3 3 3 3 3 . 
@@ -164,6 +155,24 @@ b b 1 b b b
 3 b b b b b b b b b b b b b b 3 
 3 b b b b b b b b b b b b b b 3 
 . 3 3 3 3 3 3 3 3 3 3 3 3 3 3 . 
+`;
+            case "image1":
+            case "canShoot":return img`
+. b b b b . 
+b b b b b 1 
+b b b b 1 b 
+b 1 b 1 b b 
+b b 1 b b b 
+. b b b b . 
+`;
+            case "image14":
+            case "noShoot":return img`
+. 8 8 8 8 . 
+8 1 8 8 1 8 
+8 8 1 1 8 8 
+8 8 1 1 8 8 
+8 1 8 8 1 8 
+. 8 8 8 8 . 
 `;
         }
         return null;
