@@ -1,7 +1,7 @@
 class Boat {
     public boatSprite: Sprite = null
     private _health = 3
-    private _boatImage: Image = assets.image`boat`
+    private _boatImage: Image = assets.image`Boat`
     // Half second per "beat"
     private _rythmRate: number = 1000
     // 1 = down, -1 = up
