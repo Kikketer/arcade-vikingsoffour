@@ -5,12 +5,12 @@ class EnemyBoat {
     private _nextShotTime: number = 0
     private _arrow: Sprite = null
 
-    constructor({ followTarget }: { followTarget: Sprite }) {
+    constructor({ followTarget, firstShot }: { followTarget: Sprite, firstShot?: number }) {
         this._followSprite = followTarget
         // When creating a new enemy boat, pick a random side to spawn on
         this.enemySprite = sprites.create(assets.image`Enemy Ship Left`)
         this.enemySprite.z = 50
-        this._nextShotTime = game.runtime() + Utils.random(3000, 8000)
+        this._nextShotTime = game.runtime() + firstShot ? firstShot : Utils.random(3000, 5000)
         // Spawn the sprite off screen
         const spawnSide = Utils.random(1, 2)
         switch (spawnSide) {
@@ -27,7 +27,7 @@ class EnemyBoat {
                 this.enemySprite.image.flipX()
                 this.enemySprite.setPosition(
                     this._followSprite.x - 80,
-                        Utils.random(0, 120) +
+                        Utils.random(0, 70) +
                         (this._followSprite.y - 60)
                 )
                 break
@@ -35,7 +35,7 @@ class EnemyBoat {
                 // Right
                 this.enemySprite.setPosition(
                     this._followSprite.x + 80,
-                        Utils.random(0, 120) +
+                        Utils.random(0, 70) +
                         (this._followSprite.y - 60)
                 )
                 break

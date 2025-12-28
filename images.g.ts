@@ -110,33 +110,6 @@ e e e . . . e e e . . . . . .
 3 . . . . . . . . . . . . . . 3 
 . 3 3 3 3 3 3 3 3 3 3 3 3 3 3 . 
 `;
-            case "image11":
-            case "fillMid":return img`
-. 3 3 3 3 3 3 3 3 3 3 3 3 3 3 . 
-3 4 4 4 4 4 4 4 . . . . . . . 3 
-3 4 4 4 4 4 4 4 . . . . . . . 3 
-3 4 4 4 4 4 4 4 . . . . . . . 3 
-3 4 4 4 4 4 4 4 . . . . . . . 3 
-. 3 3 3 3 3 3 3 3 3 3 3 3 3 3 . 
-`;
-            case "image12":
-            case "fillAlmost":return img`
-. 3 3 3 3 3 3 3 3 3 3 3 3 3 3 . 
-3 5 5 5 5 5 5 5 5 5 5 5 5 5 . 3 
-3 5 5 5 5 5 5 5 5 5 5 5 5 5 . 3 
-3 5 5 5 5 5 5 5 5 5 5 5 5 5 . 3 
-3 5 5 5 5 5 5 5 5 5 5 5 5 5 . 3 
-. 3 3 3 3 3 3 3 3 3 3 3 3 3 3 . 
-`;
-            case "image13":
-            case "fillFull":return img`
-. 3 3 3 3 3 3 3 3 3 3 3 3 3 3 . 
-3 b b b b b b b b b b b b b b 3 
-3 b b b b b b b b b b b b b b 3 
-3 b b b b b b b b b b b b b b 3 
-3 b b b b b b b b b b b b b b 3 
-. 3 3 3 3 3 3 3 3 3 3 3 3 3 3 . 
-`;
             case "image1":
             case "canShoot":return img`
 . b b b b . 
@@ -211,6 +184,44 @@ b b 1 b b b
 . . . . . . . f f b 1 b . . . . 
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
+`;
+            case "image3":
+            case "arrowUp":return img`
+. . . 9 . . . 
+. . 9 9 9 . . 
+. 9 9 9 9 9 . 
+9 9 9 9 9 9 9 
+. . 9 9 9 . . 
+. . 9 9 9 . . 
+. . 9 9 9 . . 
+. . 9 9 9 . . 
+`;
+            case "image11":
+            case "fillMid":return img`
+. 3 3 3 3 3 3 3 3 3 3 3 3 3 3 . 
+3 4 4 4 4 4 . . . . . . . . . 3 
+3 4 4 4 4 4 . . . . . . . . . 3 
+3 4 4 4 4 4 . . . . . . . . . 3 
+3 4 4 4 4 4 . . . . . . . . . 3 
+. 3 3 3 3 3 3 3 3 3 3 3 3 3 3 . 
+`;
+            case "image12":
+            case "fillAlmost":return img`
+. 3 3 3 3 3 3 3 3 3 3 3 3 3 3 . 
+3 5 5 5 5 5 5 5 5 5 . . . . . 3 
+3 5 5 5 5 5 5 5 5 5 . . . . . 3 
+3 5 5 5 5 5 5 5 5 5 . . . . . 3 
+3 5 5 5 5 5 5 5 5 5 . . . . . 3 
+. 3 3 3 3 3 3 3 3 3 3 3 3 3 3 . 
+`;
+            case "image13":
+            case "fillFull":return img`
+. 3 3 f 3 3 3 3 3 3 3 3 3 3 3 . 
+3 b b f b b b b b b b b b b b 3 
+3 b f b f b b b b b b b b b b 3 
+3 b f b f b b f f b f f b f b 3 
+3 f b f b f b f b b f b f b f 3 
+. f 3 3 3 f 3 f 3 3 f 3 f 3 f . 
 `;
         }
         return null;

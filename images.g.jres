@@ -39,21 +39,6 @@
         "mimeType": "image/x-mkcd-f4",
         "displayName": "fillEmpty"
     },
-    "image11": {
-        "data": "hwQQAAYAAAAwMwMAQ0Q0AENENABDRDQAQ0Q0AENENABDRDQAQ0Q0AAMAMAADADAAAwAwAAMAMAADADAAAwAwAAMAMAAwMwMA",
-        "mimeType": "image/x-mkcd-f4",
-        "displayName": "fillMid"
-    },
-    "image12": {
-        "data": "hwQQAAYAAAAwMwMAU1U1AFNVNQBTVTUAU1U1AFNVNQBTVTUAU1U1AFNVNQBTVTUAU1U1AFNVNQBTVTUAU1U1AAMAMAAwMwMA",
-        "mimeType": "image/x-mkcd-f4",
-        "displayName": "fillAlmost"
-    },
-    "image13": {
-        "data": "hwQQAAYAAAAwMwMAs7s7ALO7OwCzuzsAs7s7ALO7OwCzuzsAs7s7ALO7OwCzuzsAs7s7ALO7OwCzuzsAs7s7ALO7OwAwMwMA",
-        "mimeType": "image/x-mkcd-f4",
-        "displayName": "fillFull"
-    },
     "image1": {
         "data": "hwQGAAYAAACwuwsAuxu7ALu7sQC7G7sAu7G7ABC7CwA=",
         "mimeType": "image/x-mkcd-f4",
@@ -78,6 +63,26 @@
         "data": "hwQQABAAAAAAAAAAAAAAAAAA8I/4DwAAAADP+I/8AAAAAM/4j/wAAADwzIZozA8AAPDMaIbMDwAA8MyMyMwPAADPuxGxu/wAAL8RERER+wAAERGxuxGxAAC7zHd3zBsAAMt8d3fHvAAA8Hx3d8cPAAAAz3d3/AAAAADw//8PAAAAAAAAAAAAAA==",
         "mimeType": "image/x-mkcd-f4",
         "displayName": "Enemy Ship Left"
+    },
+    "image3": {
+        "data": "hwQHAAgAAAAAkAAAAJkAAJCZmZmZmZmZkJmZmQCZAAAAkAAA",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "arrowUp"
+    },
+    "image11": {
+        "data": "hwQQAAYAAAAwMwMAQ0Q0AENENABDRDQAQ0Q0AENENAADADAAAwAwAAMAMAADADAAAwAwAAMAMAADADAAAwAwAAMAMAAwMwMA",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "fillMid"
+    },
+    "image12": {
+        "data": "hwQQAAYAAAAwMwMAU1U1AFNVNQBTVTUAU1U1AFNVNQBTVTUAU1U1AFNVNQBTVTUAAwAwAAMAMAADADAAAwAwAAMAMAAwMwMA",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "fillAlmost"
+    },
+    "image13": {
+        "data": "hwQQAAYAAAAwMwMAs7v/ALP/OwD/uz8As/87ALO7/wCzuzsAs/v/ALP7OwCzuzsAs/v/ALP7OwCzu/8As/s7ALO7/wAwMwMA",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "fillFull"
     },
     "anim1": {
         "namespace": "myAnimations",

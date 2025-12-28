@@ -33,7 +33,7 @@ class Rowman {
         this._loadSprite = sprites.create(assets.image`fillEmpty`)
         this._loadSprite.z = 100
 
-        this._arrowLoadSprite = sprites.create(img`1`)
+        this._arrowLoadSprite = sprites.create(img`.`)
         this._arrowLoadSprite.z = 100
 
         // Odd rowmen are on the left
