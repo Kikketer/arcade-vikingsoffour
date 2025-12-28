@@ -30,8 +30,8 @@ class Ocean {
         })
 
         // Decide when the next enemy should spawn
-        this._nextEnemySpawn =
-            game.runtime() + Math.floor(Math.random() * 5000) + 5000
+        // This enemy won't appear until the other is dead
+        this._nextEnemySpawn = game.runtime() + Utils.random(5000, 10000)
     }
 
     public destroy() {
@@ -93,42 +93,42 @@ class Ocean {
     }
 
     public onUpdate() {
-        if (this._boat) {
-            this._boat.onUpdate({
-                activeEnemy: this._activeEnemy
-            })
-            // Add more waves if we have gone X pixels beyond last Check
-            if (
-                Math.abs(this._boat.boatSprite.y - this._lastWaveLine) >
-                Math.floor(Math.random() * 5) + 10 && 
-                this._boat.boatSprite.y > this._shoreLine
-            ) {
-                this._lastWaveLine = this._boat.boatSprite.y
-                this.addMoreWaves()
-            }
+        if (!this._boat || !this._boat.boatSprite) return 
 
-            // Check to see if we can see the shore
-            if (this._boat.boatSprite.y < this._shoreLine) {
-                const shore = image.create(160, 70)
-                shore.fillRect(0, 0, 160, (this._boat.boatSprite.y - this._shoreLine) * -1, 15)
-                scene.setBackgroundImage(shore)
-            }
+        this._boat.onUpdate({
+            activeEnemy: this._activeEnemy
+        })
+        // Add more waves if we have gone X pixels beyond last Check
+        if (
+            Math.abs(this._boat.boatSprite.y - this._lastWaveLine) >
+            Utils.random(10, 15) && 
+            this._boat.boatSprite.y > this._shoreLine
+        ) {
+            this._lastWaveLine = this._boat.boatSprite.y
+            this.addMoreWaves()
+        }
 
-            // And check for end-game
-            if (this._boat.boatSprite.y < this._shoreLine - 50) {
-                this._onComplete(true)
-            }
+        // Check to see if we can see the shore
+        if (this._boat.boatSprite.y < this._shoreLine) {
+            const shore = image.create(160, 70)
+            shore.fillRect(0, 0, 160, (this._boat.boatSprite.y - this._shoreLine) * -1, 9)
+            scene.setBackgroundImage(shore)
+        }
+
+        // And check for end-game
+        if (this._boat.boatSprite.y < this._shoreLine - 50) {
+            this._onComplete(true)
         }
 
         if (this._activeEnemy) {
             this._activeEnemy.onUpdate()
-        } else if (game.runtime() > this._nextEnemySpawn && this._boat) {
+        } else if (game.runtime() > this._nextEnemySpawn) {
             this._activeEnemy = new EnemyBoat({
                 followTarget: this._boat.boatSprite
             })
             // Schedule next spawn
             this._nextEnemySpawn =
-                game.runtime() + Math.floor(Math.random() * 5000) + 5000
+                game.runtime() + Utils.random(5000, 8000)
         }
 
         // Spawn tentacles
