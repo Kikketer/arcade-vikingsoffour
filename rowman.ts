@@ -160,6 +160,7 @@ class Rowman {
             // Start loading the arrow for the other side
             this.loadingStage = 1
             this._loadStartTime = game.runtime() + this._arrowLoadInterval
+            animation.runImageAnimation(this._arrowLoadSprite, assets.animation`Dots`, this._arrowLoadInterval / 3, false)
         } else {
             // If you push too fast it'll reset!
             if (game.runtime() < this._loadStartTime) {
@@ -176,7 +177,7 @@ class Rowman {
                 return
             }
 
-            animation.runImageAnimation(this._arrowLoadSprite, assets.animation`Fire`, 500, false)
+            animation.runImageAnimation(this._arrowLoadSprite, assets.animation`Dots`, this._arrowLoadInterval / 3, false)
 
             this.loadingStage = this.loadingStage + 1
             this._loadStartTime = game.runtime() + this._arrowLoadInterval

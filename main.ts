@@ -4,7 +4,7 @@ namespace SpriteKind {
 function onFinishOcean (win: boolean) {
     music.stopAllSounds()
     ocean.destroy()
-    game.gameOver(win)
+game.gameOver(win)
 }
 let activeEnemy = null
 const ocean = new Ocean({ onComplete: onFinishOcean })

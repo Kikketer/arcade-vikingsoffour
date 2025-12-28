@@ -887,6 +887,29 @@ a1111111111111a
 8 a a 8 . 
 . 8 a a . 
 `];
+            case "Dots":
+            case "anim10":return [img`
+. 1 b b . . . c c c . . . c c c . 
+1 1 1 b b . c . . . c . c . . . c 
+b 1 b b b . c . . . c . c . . . c 
+b b b c b . c . . . c . c . . . c 
+b b c c b . c . . . c . c . . . c 
+. b b b . . . c c c . . . c c c . 
+`, img`
+. 1 b b . . . 1 b b . . . c c c . 
+1 1 1 b b . 1 1 1 b b . c . . . c 
+b 1 b b b . b 1 b b b . c . . . c 
+b b b c b . b b b c b . c . . . c 
+b b c c b . b b c c b . c . . . c 
+. b b b . . . b b b . . . c c c . 
+`, img`
+. 2 8 8 . . . 2 8 8 . . . 2 8 8 . 
+2 2 2 8 8 . 2 2 2 8 8 . 2 2 2 8 8 
+8 2 8 8 8 . 8 2 8 8 8 . 8 2 8 8 8 
+8 8 8 6 8 . 8 8 8 6 8 . 8 8 8 6 8 
+8 8 6 6 8 . 8 8 6 6 8 . 8 8 6 6 8 
+. 8 8 8 . . . 8 8 8 . . . 8 8 8 . 
+`];
         }
         return null;
     })
