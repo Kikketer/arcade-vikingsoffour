@@ -13,6 +13,7 @@
         "assets.json",
         "enemyBoat.ts",
         "rowman.ts",
+        "tutorial.ts",
         "utils.ts",
         "ocean.ts",
         "boat.ts",
