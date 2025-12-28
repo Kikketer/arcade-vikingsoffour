@@ -12,7 +12,7 @@ class Ocean {
     private _onComplete: (win: boolean) => void = () => {}
     // 60 second game:
     private _tentacleAppear: number = 60000
-    private _tentacles: Sprite = null
+    private _tentacles: Sprite[] = []
 
     constructor({ onComplete }: { onComplete: (win: boolean) => void }) {
         scene.setBackgroundColor(13)
@@ -45,9 +45,11 @@ class Ocean {
             this._activeEnemy = null
         }
 
-        if (this._tentacles) {
-            sprites.destroy(this._tentacles)
-            this._tentacles = null
+        if (this._tentacles.length) {
+            for (let i = 0; i < this._tentacles.length; i++) {
+                sprites.destroy(this._tentacles[i])
+            }
+            this._tentacles = []
         }
     }
 
@@ -121,7 +123,6 @@ class Ocean {
         if (this._activeEnemy) {
             this._activeEnemy.onUpdate()
         } else if (game.runtime() > this._nextEnemySpawn && this._boat) {
-            console.log(`The active enemy ${!!this._activeEnemy}`)
             this._activeEnemy = new EnemyBoat({
                 followTarget: this._boat.boatSprite
             })
@@ -132,10 +133,13 @@ class Ocean {
 
         // Spawn tentacles
         if (game.runtime() > this._tentacleAppear && !this._tentacles) {
-            this._tentacles = sprites.create(img`7`, SpriteKind.Enemy)
-            this._tentacles.setPosition(this._boat.boatSprite.x - 12, this._boat.boatSprite.y + 60)
-            this._tentacles.vy = -5
-            animation.runImageAnimation(this._tentacles, assets.animation`totally a tentacle`, 200, true)
+            for (let i = 0; i < 2; i++) {
+                const tentacle = sprites.create(img`7`, SpriteKind.Enemy)
+                tentacle.setPosition(this._boat.boatSprite.x - (i * 16), this._boat.boatSprite.y + 50 + (i * 5))
+                tentacle.vy = -5
+                animation.runImageAnimation(tentacle, assets.animation`totally a tentacle`, 200 + (i * 40), true)
+                this._tentacles.push(tentacle)
+            }
         } else if (game.runtime() > this._tentacleAppear + 10000) {
             // If tenticles are alive, we only have a limited time!
             this._onComplete(false)

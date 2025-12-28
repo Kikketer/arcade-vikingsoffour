@@ -12,6 +12,10 @@ class Boat {
     private _onDie: () => void
     private _activeEnemy: EnemyBoat = null
     private _fires: Sprite[] = []
+    // Current song is 8 seconds long, we manually loop it to stay in sync
+    private _musicLength: number = 8000
+    private _startMusicTime: number = 0
+    private _isMusicPlaying: boolean = false
 
     constructor({ onDie }: { onDie: () => void }) {
         this._onDie = onDie
@@ -81,6 +85,11 @@ class Boat {
             this.boatSprite.y - 15
         )
         this._shoutSprite.z = 51
+        // Start the music every 8 rounds, this helps stay in sync
+        if (this._startMusicTime === 0 || game.runtime() - this._startMusicTime > this._musicLength) {
+            music.play(music.createSong(assets.song`Boat 0`), music.PlaybackMode.InBackground)
+            this._startMusicTime = game.runtime()
+        }
     }
 
     private _hit() {
@@ -178,9 +187,6 @@ class Boat {
         // Compare the factors to determine if we turn left or right
         const resultingFactor = leftSideFactor - rightSideFactor
         this.boatSprite.vx = 2 * resultingFactor
-
-        // During testing:
-        // this.boatSprite.vy = -5
 
         if (
             resultingFactor === 0 &&
