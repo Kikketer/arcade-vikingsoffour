@@ -34,7 +34,7 @@ class Ocean {
 
         this._activeEnemy = new EnemyBoat({
             followTarget: this._boat.boatSprite,
-            firstShot: 10000
+            firstShot: 12000
         })
 
         // Decide when the next enemy should spawn
@@ -77,8 +77,8 @@ class Ocean {
         for (let i = 0; i < 10; i++) {
             const spriteToCreate = new Sprite(assets.image`waves`)
             // Place the wave in a random spot on the active screen
-            const xPos = Math.floor(Math.random() * 160)
-            const yPos = Math.floor(Math.random() * 120) - 70
+            const xPos = Utils.random(0, 160)
+            const yPos = Utils.random(-60, 60)
             // Destroy when leaving the screen
             spriteToCreate.setFlag(SpriteFlag.AutoDestroy, true)
             spriteToCreate.setPosition(xPos, yPos)
