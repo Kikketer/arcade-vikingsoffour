@@ -8,25 +8,26 @@ class EnemyBoat {
     constructor({ followTarget }: { followTarget: Sprite }) {
         this._followSprite = followTarget
         // When creating a new enemy boat, pick a random side to spawn on
-        this.enemySprite = sprites.create(assets.image`enemyBoat`)
+        this.enemySprite = sprites.create(assets.image`Enemy Ship Left`)
         this.enemySprite.z = 50
-        this._nextShotTime = game.runtime() + Math.floor(Math.random() * 3000) + 5000
+        this._nextShotTime = game.runtime() + Utils.random(3000, 8000)
         // Spawn the sprite off screen
-        const spawnSide = Math.floor(Math.random() * 2) + 1
+        const spawnSide = Utils.random(1, 2)
         switch (spawnSide) {
             case 0:
                 // Top (not used today...)
                 this.enemySprite.setPosition(
-                    Math.floor(Math.random() * 160) +
+                        Utils.random(0, 160) +
                         (this._followSprite.x - 80),
                     this._followSprite.y - 60
                 )
                 break
             case 1:
                 // Left
+                this.enemySprite.image.flipX()
                 this.enemySprite.setPosition(
                     this._followSprite.x - 80,
-                    Math.floor(Math.random() * 120) +
+                        Utils.random(0, 120) +
                         (this._followSprite.y - 60)
                 )
                 break
@@ -34,7 +35,7 @@ class EnemyBoat {
                 // Right
                 this.enemySprite.setPosition(
                     this._followSprite.x + 80,
-                    Math.floor(Math.random() * 120) +
+                        Utils.random(0, 120) +
                         (this._followSprite.y - 60)
                 )
                 break
@@ -59,19 +60,19 @@ class EnemyBoat {
         }
 
         // And shoot!
-        if (!this._arrow && this._nextShotTime < game.runtime()) {
-            this._nextShotTime = game.runtime() + Math.floor(Math.random() * 2000) + 4000
-            this._arrow = sprites.create(assets.image`arrowLeft`, SpriteKind.EnemyArrow)
-            this._arrow.onDestroyed(() => this._arrow = null)
+        // if (!this._arrow && this._nextShotTime < game.runtime()) {
+        //     this._nextShotTime = game.runtime() + Utils.random(2000, 4000)
+        //     this._arrow = sprites.create(assets.image`arrowLeft`, SpriteKind.EnemyArrow)
+        //     this._arrow.onDestroyed(() => this._arrow = null)
             
-            if (this.enemySprite.x < this._followSprite.x) {
-                this._arrow.image.flipX()
-            }
+        //     if (this.enemySprite.x < this._followSprite.x) {
+        //         this._arrow.image.flipX()
+        //     }
             
-            this._arrow.setPosition(this.enemySprite.x, this.enemySprite.y)
-            this._arrow.setFlag(SpriteFlag.AutoDestroy, true)
-            this._arrow.follow(this._followSprite, 100)
-        }
+        //     this._arrow.setPosition(this.enemySprite.x, this.enemySprite.y)
+        //     this._arrow.setFlag(SpriteFlag.AutoDestroy, true)
+        //     this._arrow.follow(this._followSprite, 100)
+        // }
     }
 
     public destroy() {

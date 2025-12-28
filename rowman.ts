@@ -17,6 +17,7 @@ class Rowman {
     private _arrowLoadInterval: number = 400
     public canShoot: boolean = false
     private _onShootArrow: () => void
+    private _arrowLoadSprite: Sprite = null
     
     constructor({ controller, boat, onShootArrow }: { 
             controller: controller.Controller, 
@@ -133,6 +134,11 @@ class Rowman {
             sprites.destroy(this._arrow)
             this._arrow = null
         }
+
+        if (this._arrowLoadSprite) {
+            sprites.destroy(this._arrowLoadSprite)
+            this._arrowLoadSprite = null
+        }
     }
 
     public resetArrow() {
@@ -162,6 +168,9 @@ class Rowman {
                 this._loadStartTime = 0
                 return
             }
+
+            this._arrowLoadSprite = sprites.create(img`.`)
+            animation.runImageAnimation(this._arrowLoadSprite, assets.animation`Fire`, 500, false)
 
             this.loadingStage = this.loadingStage + 1
             this._loadStartTime = game.runtime() + this._arrowLoadInterval

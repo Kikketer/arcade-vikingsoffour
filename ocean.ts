@@ -10,6 +10,9 @@ class Ocean {
     private _nextEnemySpawn: number = 0
     private _shoreLine: number = -100
     private _onComplete: (win: boolean) => void = () => {}
+    // 60 second game:
+    private _tentacleAppear: number = 60000
+    private _tentacles: Sprite = null
 
     constructor({ onComplete }: { onComplete: (win: boolean) => void }) {
         scene.setBackgroundColor(13)
@@ -40,6 +43,11 @@ class Ocean {
         if (this._activeEnemy) {
             this._activeEnemy.destroy()
             this._activeEnemy = null
+        }
+
+        if (this._tentacles) {
+            sprites.destroy(this._tentacles)
+            this._tentacles = null
         }
     }
 
@@ -120,6 +128,17 @@ class Ocean {
             // Schedule next spawn
             this._nextEnemySpawn =
                 game.runtime() + Math.floor(Math.random() * 5000) + 5000
+        }
+
+        // Spawn tentacles
+        if (game.runtime() > this._tentacleAppear && !this._tentacles) {
+            this._tentacles = sprites.create(img`7`, SpriteKind.Enemy)
+            this._tentacles.setPosition(this._boat.boatSprite.x - 12, this._boat.boatSprite.y + 60)
+            this._tentacles.vy = -5
+            animation.runImageAnimation(this._tentacles, assets.animation`totally a tentacle`, 200, true)
+        } else if (game.runtime() > this._tentacleAppear + 10000) {
+            // If tenticles are alive, we only have a limited time!
+            this._onComplete(false)
         }
     }
 }

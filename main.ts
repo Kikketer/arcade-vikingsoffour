@@ -9,7 +9,6 @@ function onFinishOcean (win: boolean) {
 let activeEnemy = null
 const ocean = new Ocean({ onComplete: onFinishOcean })
 music.play(music.createSong(assets.song`Boat 0`), music.PlaybackMode.LoopingInBackground)
-
 game.onUpdate(function () {
     ocean.onUpdate()
 })

@@ -1,7 +1,6 @@
 class Boat {
     public boatSprite: Sprite = null
     private _health = 3
-    private _boatImage: Image = assets.image`Boat`
     // Half second per "beat"
     private _rythmRate: number = 1000
     // 1 = down, -1 = up
@@ -12,14 +11,15 @@ class Boat {
     private _rowmen: Rowman[] = null
     private _onDie: () => void
     private _activeEnemy: EnemyBoat = null
+    private _fires: Sprite[] = []
 
     constructor({ onDie }: { onDie: () => void }) {
         this._onDie = onDie
-        this.boatSprite = sprites.create(this._boatImage, SpriteKind.Player)
+        this.boatSprite = sprites.create(assets.image`Boat`, SpriteKind.Player)
         this.boatSprite.setPosition(80, 0)
         this.boatSprite.z = 50
 
-        animation.runImageAnimation(this.boatSprite, assets.animation`Wind`, 400, true)
+        animation.runImageAnimation(this.boatSprite, assets.animation`Wind`, 300, true)
 
         // And create the rowmen:
         this._rowmen = [
@@ -45,6 +45,11 @@ class Boat {
         this._shoutSprite = null
         sprites.destroy(this.boatSprite)
         this.boatSprite = null
+
+        for (let i = 0; i < this._fires.length; i++) {
+            sprites.destroy(this._fires[i])
+        }
+        this._fires = []
     }
 
     // Get the player row factor
@@ -80,8 +85,20 @@ class Boat {
 
     private _hit() {
         this._health -= 1
+        
+        const fireSprite = sprites.create(img`.`)
+        fireSprite.setPosition(this.boatSprite.x + Utils.random(-4, 4), this.boatSprite.y + Utils.random(-10, 10))
+        fireSprite.z = 51
+        animation.runImageAnimation(fireSprite, assets.animation`Fire`, 100, true)
+
+        this._fires.push(fireSprite)
 
         if (this._health <= 0) {
+            for (let i = 0; i < this._fires.length; i++) {
+                sprites.destroy(this._fires[i])
+            }
+
+            this._fires = []
             // Boat dead!
             this._onDie()
         }
@@ -128,6 +145,7 @@ class Boat {
             // Shout the direction change
             this._shoutDirection()
         }
+
         // Check to make sure all players per side are complying to the paddle rythm
         // If any player on either side is out of alignment, turn that direction
         const leftSideFactor =
@@ -176,6 +194,12 @@ class Boat {
         } else if (this.boatSprite.vy < 0) {
             // Slow down if not in sync
             this.boatSprite.vy = this.boatSprite.vy + 0.2
+        }
+
+        // Move any fire sprites with the Boat
+        for (let i = 0; i < this._fires.length; i++) {
+            // Figure out where the fires IS compared to the center of the sprite
+            this._fires[i].setVelocity(this.boatSprite.vx, this.boatSprite.vy)
         }
     }
 }
