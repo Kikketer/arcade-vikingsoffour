@@ -33,6 +33,9 @@ class Rowman {
         this._loadSprite = sprites.create(assets.image`fillEmpty`)
         this._loadSprite.z = 100
 
+        this._arrowLoadSprite = sprites.create(img`1`)
+        this._arrowLoadSprite.z = 100
+
         // Odd rowmen are on the left
         this._isLeftRowman = controller.playerIndex % 2 === 1
 
@@ -83,17 +86,21 @@ class Rowman {
         if (this._controller.playerIndex === 1) {
             this._sprite.setPosition(this._boat.x - (this._boat.width / 2), this._boat.y - 4)
             this._loadSprite.setPosition(scene.cameraProperty(CameraProperty.Left) + 10, scene.cameraProperty(CameraProperty.Top) + 8)
+            this._arrowLoadSprite.setPosition(scene.cameraProperty(CameraProperty.Left) + 10, scene.cameraProperty(CameraProperty.Top) + 16)
             // TEMP:
             // this.loadingStage = 3
         } else if (this._controller.playerIndex === 2) {
             this._sprite.setPosition(this._boat.x + (this._boat.width / 2), this._boat.y - 4)
             this._loadSprite.setPosition(scene.cameraProperty(CameraProperty.Right) - 10, scene.cameraProperty(CameraProperty.Top) + 8)
+            this._arrowLoadSprite.setPosition(scene.cameraProperty(CameraProperty.Right) - 10, scene.cameraProperty(CameraProperty.Top) + 16)
         } else if (this._controller.playerIndex === 3) {
             this._sprite.setPosition(this._boat.x - (this._boat.width / 2), this._boat.y + 6)
             this._loadSprite.setPosition(scene.cameraProperty(CameraProperty.Left) + 10, scene.cameraProperty(CameraProperty.Bottom) - 8)
+            this._arrowLoadSprite.setPosition(scene.cameraProperty(CameraProperty.Left) + 10, scene.cameraProperty(CameraProperty.Bottom) - 16)
         } else if (this._controller.playerIndex === 4) {
             this._sprite.setPosition(this._boat.x + (this._boat.width / 2), this._boat.y + 6)
             this._loadSprite.setPosition(scene.cameraProperty(CameraProperty.Right) - 10, scene.cameraProperty(CameraProperty.Bottom) - 8)
+            this._arrowLoadSprite.setPosition(scene.cameraProperty(CameraProperty.Right) - 10, scene.cameraProperty(CameraProperty.Bottom) - 16)
         }
 
         // Oar move
@@ -169,7 +176,6 @@ class Rowman {
                 return
             }
 
-            this._arrowLoadSprite = sprites.create(img`.`)
             animation.runImageAnimation(this._arrowLoadSprite, assets.animation`Fire`, 500, false)
 
             this.loadingStage = this.loadingStage + 1
