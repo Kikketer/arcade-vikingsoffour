@@ -5,20 +5,27 @@ class EnemyBoat {
     private _nextShotTime: number = 0
     private _arrow: Sprite = null
 
-    constructor({ followTarget, firstShot }: { followTarget: Sprite, firstShot?: number }) {
+    constructor({
+        followTarget,
+        firstShot
+    }: {
+        followTarget: Sprite
+        firstShot?: number
+    }) {
         this._followSprite = followTarget
         // When creating a new enemy boat, pick a random side to spawn on
         this.enemySprite = sprites.create(assets.image`Enemy Ship Left`)
         this.enemySprite.z = 50
-        this._nextShotTime = game.runtime() + firstShot ? firstShot : Utils.random(3000, 5000)
+        this._nextShotTime = firstShot
+            ? game.runtime() + firstShot
+            : Utils.random(3000, 5000)
         // Spawn the sprite off screen
         const spawnSide = Utils.random(1, 2)
         switch (spawnSide) {
             case 0:
                 // Top (not used today...)
                 this.enemySprite.setPosition(
-                        Utils.random(0, 160) +
-                        (this._followSprite.x - 80),
+                    Utils.random(0, 160) + (this._followSprite.x - 80),
                     this._followSprite.y - 60
                 )
                 break
@@ -27,16 +34,14 @@ class EnemyBoat {
                 this.enemySprite.image.flipX()
                 this.enemySprite.setPosition(
                     this._followSprite.x - 80,
-                        Utils.random(0, 70) +
-                        (this._followSprite.y - 60)
+                    Utils.random(0, 70) + (this._followSprite.y - 60)
                 )
                 break
             case 2:
                 // Right
                 this.enemySprite.setPosition(
                     this._followSprite.x + 80,
-                        Utils.random(0, 70) +
-                        (this._followSprite.y - 60)
+                    Utils.random(0, 70) + (this._followSprite.y - 60)
                 )
                 break
         }
@@ -46,7 +51,7 @@ class EnemyBoat {
 
     public onUpdate() {
         if (!this.enemySprite) return
-        
+
         if (
             Utils.getDistanceBetweenSprites({
                 spriteA: this.enemySprite,
@@ -62,13 +67,16 @@ class EnemyBoat {
         // And shoot!
         if (!this._arrow && this._nextShotTime < game.runtime()) {
             this._nextShotTime = game.runtime() + Utils.random(2000, 4000)
-            this._arrow = sprites.create(assets.image`arrowLeft`, SpriteKind.EnemyArrow)
-            this._arrow.onDestroyed(() => this._arrow = null)
-            
+            this._arrow = sprites.create(
+                assets.image`arrowLeft`,
+                SpriteKind.EnemyArrow
+            )
+            this._arrow.onDestroyed(() => (this._arrow = null))
+
             if (this.enemySprite.x < this._followSprite.x) {
                 this._arrow.image.flipX()
             }
-            
+
             this._arrow.setPosition(this.enemySprite.x, this.enemySprite.y)
             this._arrow.setFlag(SpriteFlag.AutoDestroy, true)
             this._arrow.follow(this._followSprite, 100)
