@@ -1,23 +1,23 @@
 namespace SpriteKind {
     export const EnemyArrow = SpriteKind.create()
 }
-function onFinishTutorial () {
+function onFinishTutorial() {
     menu.destroy()
-    scenePage = "game"
+    scenePage = 'game'
 }
-function onFinishOcean (win: boolean) {
+function onFinishOcean(win: boolean) {
     music.stopAllSounds()
     ocean.destroy()
     game.gameOver(win)
 }
 let ocean: Ocean = null
-let menu: Tutorial = null
-let scenePage = ""
-scenePage = "menu"
+let menu: Title = null
+let scenePage = ''
+scenePage = 'menu'
 let showTutorial = true
 switch (scenePage) {
     case 'menu':
-        menu = new Menu({ onComplete: onFinishTutorial })
+        menu = new Title({ onComplete: onFinishTutorial })
         break
     case 'game':
         ocean = new Ocean({ onComplete: onFinishOcean, showTutorial })
@@ -26,9 +26,9 @@ switch (scenePage) {
         break
 }
 game.onUpdate(function () {
-    if (scenePage == "game" && ocean) {
+    if (scenePage == 'game' && ocean) {
         ocean.onUpdate()
-    } else if (scenePage == "menu" && menu) {
+    } else if (scenePage == 'menu' && menu) {
         menu.onUpdate()
     }
 })
