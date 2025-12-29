@@ -1,20 +1,20 @@
 namespace SpriteKind {
     export const EnemyArrow = SpriteKind.create()
 }
-function onFinishTitle() {
-    title.destroy()
-    changeScene('game')
-    title = null
-}
-function onFinishOcean(win: boolean) {
+function onFinishOcean (win: boolean) {
     music.stopAllSounds()
     ocean.destroy()
-    game.gameOver(win)
+game.gameOver(win)
     ocean = null
 }
-let ocean: Ocean = null
+function onFinishTitle () {
+    title.destroy()
+changeScene('game')
+title = null
+}
 let title: Title = null
-let _scenePage = 'title'
+let ocean: Ocean = null
+let _scenePage = "title"
 let showTutorial = true
 function changeScene(scenePage: 'title' | 'game') {
     _scenePage = scenePage
@@ -30,11 +30,10 @@ function changeScene(scenePage: 'title' | 'game') {
     }
 }
 changeScene('title')
-
 game.onUpdate(function () {
-    if (_scenePage == 'game' && ocean) {
+    if (_scenePage == "game" && ocean) {
         ocean.onUpdate()
-    } else if (_scenePage == 'title' && title) {
+    } else if (_scenePage == "title" && title) {
         title.onUpdate()
     }
 })

@@ -61,11 +61,11 @@ class Title {
         pause(400)
         sprites.destroy(this._titleSprite)
         scene.setBackgroundImage(assets.image`Title0`)
-        // pause(1000)
-        // this._boatSprite = sprites.create(assets.image`BoatFront`)
-        // this._boatLead = sprites.create(img`.`)
-        // this._boatLead.setPosition(180, -10)
-        // this._boatLead.vx += -10
-        // this._boatLead.vy += 4
+        pause(1000)
+        this._boatSprite = sprites.create(assets.image`BoatFront`)
+        this._boatLead = sprites.create(img`.`)
+        this._boatLead.setPosition(180, -10)
+        this._boatLead.vx += -10
+        this._boatLead.vy += 4
     }
 }
