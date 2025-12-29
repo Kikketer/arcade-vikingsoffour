@@ -45,22 +45,22 @@ class Title {
     private _animateTitle() {
         this._titleSprite = sprites.create(img`.`)
         this._titleSprite.setPosition(1, 1)
-        // animation.runImageAnimation(
-        //     this._titleSprite,
-        //     assets.animation`Scroll out`,
-        //     50,
-        //     false
-        // )
-        // pause(700)
-        // animation.runImageAnimation(
-        //     this._titleSprite,
-        //     assets.animation`Title Fade in`,
-        //     100,
-        //     false
-        // )
-        // pause(400)
-        // sprites.destroy(this._titleSprite)
-        // scene.setBackgroundImage(assets.image`Title`)
+        animation.runImageAnimation(
+            this._titleSprite,
+            assets.animation`Scroll out`,
+            50,
+            false
+        )
+        pause(700)
+        animation.runImageAnimation(
+            this._titleSprite,
+            assets.animation`Title Fade in`,
+            100,
+            false
+        )
+        pause(400)
+        sprites.destroy(this._titleSprite)
+        scene.setBackgroundImage(assets.image`Title0`)
         // pause(1000)
         // this._boatSprite = sprites.create(assets.image`BoatFront`)
         // this._boatLead = sprites.create(img`.`)
