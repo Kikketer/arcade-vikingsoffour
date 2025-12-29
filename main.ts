@@ -2,14 +2,15 @@ namespace SpriteKind {
     export const EnemyArrow = SpriteKind.create()
 }
 function onFinishTitle() {
-    console.log("Destroying title")
     title.destroy()
     changeScene('game')
+    title = null
 }
 function onFinishOcean(win: boolean) {
     music.stopAllSounds()
     ocean.destroy()
     game.gameOver(win)
+    ocean = null
 }
 let ocean: Ocean = null
 let title: Title = null
