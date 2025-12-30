@@ -18,6 +18,7 @@
         "title.ts",
         "utils.ts",
         "ocean.ts",
+        "victory.ts",
         "boat.ts",
         "images.g.jres",
         "images.g.ts"

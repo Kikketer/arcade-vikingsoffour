@@ -12,7 +12,7 @@ function onFinishOcean(win: boolean) {
     if (!win) {
         changeScene('gameOver')
     } else {
-        console.log('You WIN!')
+        changeScene('victory')
     }
 }
 function onFinishTitle() {
@@ -23,9 +23,10 @@ function onFinishTitle() {
 let ocean: Ocean = null
 let title: Title = null
 let gameOver: GameOver = null
+let victory: Victory = null
 let _scenePage = 'title'
 let showTutorial = true
-function changeScene(scenePage: 'title' | 'game' | 'gameOver') {
+function changeScene(scenePage: 'title' | 'game' | 'gameOver' | 'victory') {
     _scenePage = scenePage
     switch (scenePage) {
         case 'title':
@@ -36,6 +37,9 @@ function changeScene(scenePage: 'title' | 'game' | 'gameOver') {
             break
         case 'gameOver':
             gameOver = new GameOver({ onComplete: onFinishGameOver })
+            break
+        case 'victory':
+            victory = new Victory({ onComplete: onFinishGameOver })
             break
         default:
             break
@@ -49,5 +53,7 @@ game.onUpdate(function () {
         title.onUpdate()
     } else if (_scenePage == 'gameOver' && gameOver) {
         gameOver.onUpdate()
+    } else if (_scenePage == 'victory' && victory) {
+        victory.onUpdate()
     }
 })
