@@ -1,5 +1,6 @@
 namespace SpriteKind {
     export const EnemyArrow = SpriteKind.create()
+    export const Wave = SpriteKind.create()
 }
 function onFinishGameOver() {
     game.reset()

@@ -71,13 +71,15 @@ class Ocean {
             sprites.destroy(this._arrowSprite)
             this._arrowSprite = null
         }
+
+        sprites.destroyAllSpritesOfKind(SpriteKind.Wave)
     }
 
     // Used for initial draw of the Ocean
     // Future waves are added as we move forward
     private createInitialWaves() {
         for (let i = 0; i < 10; i++) {
-            const spriteToCreate = new Sprite(assets.image`waves`)
+            const spriteToCreate = sprites.create(assets.image`waves`, SpriteKind.Wave)
             // Place the wave in a random spot on the active screen
             const xPos = Utils.random(0, 160)
             const yPos = Utils.random(-60, 60)
@@ -97,7 +99,7 @@ class Ocean {
     private addMoreWaves() {
         // TODO determine what area is "new" on the screen
         // For now just spawn at the top
-        const newWave = new Sprite(assets.image`waves`)
+        const newWave = sprites.create(assets.image`waves`, SpriteKind.Wave)
         newWave.setFlag(SpriteFlag.AutoDestroy, true)
         newWave.setPosition(
             Math.floor(Math.random() * 160) + (this._boat.boatSprite.x - 80),

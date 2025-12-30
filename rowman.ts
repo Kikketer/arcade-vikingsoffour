@@ -146,6 +146,11 @@ class Rowman {
             sprites.destroy(this._arrowLoadSprite)
             this._arrowLoadSprite = null
         }
+
+        if (this._loadSprite) {
+            sprites.destroy(this._loadSprite)
+            this._loadSprite = null
+        }
     }
 
     public resetArrow() {
