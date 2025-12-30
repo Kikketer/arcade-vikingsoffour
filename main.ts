@@ -19,11 +19,11 @@ function onFinishTitle () {
 changeScene('game')
 title = null
 }
-let victory: Victory = null
-let gameOver: GameOver = null
-let title: Title = null
 let ocean: Ocean = null
-let _scenePage = "title"
+let title: Title = null
+let gameOver: GameOver = null
+let victory: Victory = null
+let _scenePage: string = null
 let showTutorial = true
 function changeScene(scenePage: 'title' | 'game' | 'gameOver' | 'victory') {
     _scenePage = scenePage
@@ -44,7 +44,7 @@ function changeScene(scenePage: 'title' | 'game' | 'gameOver' | 'victory') {
             break
     }
 }
-changeScene('title')
+changeScene('gameOver')
 game.onUpdate(function () {
     if (_scenePage == "game" && ocean) {
         ocean.onUpdate()
