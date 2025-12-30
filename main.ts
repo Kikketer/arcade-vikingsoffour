@@ -45,7 +45,7 @@ function changeScene(scenePage: 'title' | 'game' | 'gameOver' | 'victory') {
             break
     }
 }
-changeScene('title')
+changeScene('victory')
 game.onUpdate(function () {
     if (_scenePage == "game" && ocean) {
         ocean.onUpdate()
