@@ -20,14 +20,16 @@ function onFinishTitle () {
 changeScene('game')
 title = null
 }
-let _scenePage: string = null
-let victory: Victory = null
-let gameOver: GameOver = null
-let title: Title = null
 let ocean: Ocean = null
+let title: Title = null
+let gameOver: GameOver = null
+let victory: Victory = null
+let _scenePage: string = null
 let showTutorial = true
 function changeScene(scenePage: 'title' | 'game' | 'gameOver' | 'victory') {
     _scenePage = scenePage
+    // Reset camera at each scene change
+    scene.centerCameraAt(80, 60)
     switch (scenePage) {
         case 'title':
             title = new Title({ onComplete: onFinishTitle })

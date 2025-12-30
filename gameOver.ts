@@ -50,5 +50,11 @@ class GameOver {
             sprites.destroy(this._pressSprite)
             this._pressSprite = null
         }
+
+        controller.player1.onButtonEvent(
+            ControllerButton.A,
+            ControllerButtonEvent.Pressed,
+            () => {}
+        )
     }
 }

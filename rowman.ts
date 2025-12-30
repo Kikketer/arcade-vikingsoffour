@@ -151,6 +151,12 @@ class Rowman {
             sprites.destroy(this._loadSprite)
             this._loadSprite = null
         }
+
+        this._controller.onButtonEvent(
+            ControllerButton.B,
+            ControllerButtonEvent.Pressed,
+            () => {}
+        )
     }
 
     public resetArrow() {

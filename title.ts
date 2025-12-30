@@ -7,6 +7,8 @@ class Title {
     private _nextIntroTime: number = 0
 
     constructor({ onComplete }: { onComplete: () => void }) {
+        music.play(music.createSong(assets.song`Title screen`), music.PlaybackMode.LoopingInBackground)
+
         controller.player1.onButtonEvent(
             ControllerButton.A,
             ControllerButtonEvent.Pressed,
@@ -32,6 +34,8 @@ class Title {
 
     public destroy() {
         scene.setBackgroundImage(img`.`)
+        music.stopAllSounds()
+
         if (this._titleSprite) {
             sprites.destroy(this._titleSprite)
             this._titleSprite = null
@@ -48,6 +52,12 @@ class Title {
             sprites.destroy(this._pressSprite)
             this._pressSprite = null
         }
+        
+        controller.player1.onButtonEvent(
+            ControllerButton.A,
+            ControllerButtonEvent.Pressed,
+            () => {}
+        )
     }
 
     private _animateTitle() {
