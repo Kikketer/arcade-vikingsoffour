@@ -2,6 +2,7 @@ class Victory {
     private _onComplete: () => void = null
     private _sprite: Sprite = null
     private _scrollSprite: Sprite = null
+    private _congratsSprite: Sprite = null
     private _boatSprite: Sprite = null
     private _boatLead: Sprite = null
     private _animStep: number = 0
@@ -19,6 +20,9 @@ class Victory {
     public onUpdate() {
         if (this._shouldBounce) {
             Utils.bounceSprite(this._boatSprite, this._boatLead)
+        } else {
+            // Just bounce less
+            Utils.bounceSprite(this._boatSprite, this._boatLead, 1)
         }
 
         if (this._animStep === 0 && this._nextAnimTime === 0) {
@@ -32,16 +36,19 @@ class Victory {
             this._nextAnimTime = game.runtime() + 3500
             this._boatSprite = sprites.create(assets.image`BoatFront`)
             this._boatSprite.setPosition(180, 0)
-            this._boatSprite.z = 11
+            this._boatSprite.z = 9
             this._boatLead = sprites.create(img`.`)
             this._boatLead.setPosition(180, 0)
             this._boatLead.vx = -10
             this._boatLead.vy = 2
         } else if (this._animStep === 2 && game.runtime() > this._nextAnimTime) {
             this._animStep++
+            this._nextAnimTime = game.runtime() + assets.animation`Scroll out`.length * 50
+            this._boatLead.vx = 0
+            this._boatLead.vy = 0
             this._shouldBounce = false
             this._scrollSprite = sprites.create(img`.`)
-            this._scrollSprite.setPosition(0, 0)
+            this._scrollSprite.setPosition(0, 55)
             this._scrollSprite.z = 10
             animation.runImageAnimation(
                 this._scrollSprite,
@@ -49,6 +56,11 @@ class Victory {
                 50,
                 false
             )
+        } else if (this._animStep === 3 && game.runtime() > this._nextAnimTime) {
+            this._animStep++
+            this._congratsSprite = sprites.create(assets.image`TheEnd`)
+            this._congratsSprite.setPosition(80, 90)
+            this._congratsSprite.z = 12
         }
     }
 
@@ -71,6 +83,11 @@ class Victory {
         if (this._scrollSprite) {
             sprites.destroy(this._scrollSprite)
             this._scrollSprite = null
+        }
+
+        if (this._congratsSprite) {
+            sprites.destroy(this._congratsSprite)
+            this._congratsSprite = null
         }
     }
 }

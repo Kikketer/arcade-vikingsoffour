@@ -81,7 +81,7 @@ class Title {
             this._nextIntroTime = game.runtime() + 2000
             this._boatSprite = sprites.create(assets.image`BoatFront`)
             this._boatLead = sprites.create(img`.`)
-            this._boatLead.setPosition(180, -10)
+            this._boatLead.setPosition(180, 0)
             this._boatLead.vx += -10
             this._boatLead.vy += 4
         } else if (this._introStep === 4 && game.runtime() > this._nextIntroTime) {
