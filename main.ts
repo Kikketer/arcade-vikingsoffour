@@ -1,22 +1,32 @@
 namespace SpriteKind {
     export const EnemyArrow = SpriteKind.create()
 }
-function onFinishOcean (win: boolean) {
+function onFinishGameOver() {
+    game.reset()
+}
+
+function onFinishOcean(win: boolean) {
     music.stopAllSounds()
     ocean.destroy()
-    game.gameOver(win)
     ocean = null
+
+    if (!win) {
+        changeScene('gameOver')
+    } else {
+        console.log('You WIN!')
+    }
 }
-function onFinishTitle () {
+function onFinishTitle() {
     title.destroy()
     changeScene('game')
     title = null
 }
 let ocean: Ocean = null
 let title: Title = null
-let _scenePage = "title"
+let gameOver: GameOver = null
+let _scenePage = 'title'
 let showTutorial = true
-function changeScene(scenePage: 'title' | 'game') {
+function changeScene(scenePage: 'title' | 'game' | 'gameOver') {
     _scenePage = scenePage
     switch (scenePage) {
         case 'title':
@@ -25,15 +35,20 @@ function changeScene(scenePage: 'title' | 'game') {
         case 'game':
             ocean = new Ocean({ onComplete: onFinishOcean, showTutorial })
             break
+        case 'gameOver':
+            gameOver = new GameOver({ onComplete: onFinishGameOver })
+            break
         default:
             break
     }
 }
 changeScene('title')
 game.onUpdate(function () {
-    if (_scenePage == "game" && ocean) {
+    if (_scenePage == 'game' && ocean) {
         ocean.onUpdate()
-    } else if (_scenePage == "title" && title) {
+    } else if (_scenePage == 'title' && title) {
         title.onUpdate()
+    } else if (_scenePage == 'gameOver' && gameOver) {
+        gameOver.onUpdate()
     }
 })
