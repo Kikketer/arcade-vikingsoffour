@@ -4,16 +4,16 @@ namespace SpriteKind {
 function onFinishOcean (win: boolean) {
     music.stopAllSounds()
     ocean.destroy()
-game.gameOver(win)
+    game.gameOver(win)
     ocean = null
 }
 function onFinishTitle () {
     title.destroy()
-changeScene('game')
-title = null
+    changeScene('game')
+    title = null
 }
-let title: Title = null
 let ocean: Ocean = null
+let title: Title = null
 let _scenePage = "title"
 let showTutorial = true
 function changeScene(scenePage: 'title' | 'game') {
