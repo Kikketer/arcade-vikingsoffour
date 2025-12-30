@@ -6,7 +6,6 @@ function onFinishGameOver() {
 }
 
 function onFinishOcean(win: boolean) {
-    music.stopAllSounds()
     ocean.destroy()
     ocean = null
 

@@ -43,6 +43,8 @@ class Ocean {
     }
 
     public destroy() {
+        music.stopAllSounds()
+        
         if (this._boat) {
             this._boat.destroy()
             this._boat = null

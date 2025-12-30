@@ -3,7 +3,9 @@ class GameOver {
 
     constructor({ onComplete }: { onComplete: () => void }) {
         this._onComplete = onComplete
-
+        
+        music.play(music.createSong(assets.song`gameOver`), music.PlaybackMode.LoopingInBackground)
+        
         controller.player1.onButtonEvent(
             ControllerButton.A,
             ControllerButtonEvent.Pressed,
@@ -15,5 +17,7 @@ class GameOver {
 
     public onUpdate() {}
 
-    public destroy() {}
+    public destroy() {
+        music.stopAllSounds()
+    }
 }
