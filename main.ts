@@ -2,30 +2,28 @@ namespace SpriteKind {
     export const EnemyArrow = SpriteKind.create()
     export const Wave = SpriteKind.create()
 }
-function onFinishGameOver() {
-    game.reset()
-}
-
-function onFinishOcean(win: boolean) {
+function onFinishOcean (win: boolean) {
     ocean.destroy()
-    ocean = null
-
-    if (!win) {
+ocean = null
+if (!(win)) {
         changeScene('gameOver')
     } else {
         changeScene('victory')
     }
 }
-function onFinishTitle() {
-    title.destroy()
-    changeScene('game')
-    title = null
+function onFinishGameOver () {
+    game.reset()
 }
-let ocean: Ocean = null
-let title: Title = null
-let gameOver: GameOver = null
+function onFinishTitle () {
+    title.destroy()
+changeScene('game')
+title = null
+}
 let victory: Victory = null
-let _scenePage = 'title'
+let gameOver: GameOver = null
+let title: Title = null
+let ocean: Ocean = null
+let _scenePage = "title"
 let showTutorial = true
 function changeScene(scenePage: 'title' | 'game' | 'gameOver' | 'victory') {
     _scenePage = scenePage
@@ -48,13 +46,13 @@ function changeScene(scenePage: 'title' | 'game' | 'gameOver' | 'victory') {
 }
 changeScene('title')
 game.onUpdate(function () {
-    if (_scenePage == 'game' && ocean) {
+    if (_scenePage == "game" && ocean) {
         ocean.onUpdate()
-    } else if (_scenePage == 'title' && title) {
+    } else if (_scenePage == "title" && title) {
         title.onUpdate()
-    } else if (_scenePage == 'gameOver' && gameOver) {
+    } else if (_scenePage == "gameOver" && gameOver) {
         gameOver.onUpdate()
-    } else if (_scenePage == 'victory' && victory) {
+    } else if (_scenePage == "victory" && victory) {
         victory.onUpdate()
     }
 })
