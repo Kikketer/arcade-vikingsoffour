@@ -11,6 +11,8 @@ class Victory {
 
     constructor({ onComplete }: { onComplete: () => void }) {
         this._onComplete = onComplete
+
+        music.play(music.createSong(assets.song`Ending`), music.PlaybackMode.LoopingInBackground)
         
         controller.player1.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Pressed, () => {
             this._onComplete()
@@ -65,6 +67,8 @@ class Victory {
     }
 
     public destroy() {
+        music.stopAllSounds()
+        
         if (this._sprite) {
             sprites.destroy(this._sprite)
             this._sprite = null
