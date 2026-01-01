@@ -47,7 +47,9 @@ class Ocean {
         
         if (this._boat) {
             this._boat.destroy()
-            this._boat = null
+            // TODO Why is this causing a crash...
+            // Something is accessing the boat after destroy()
+            // this._boat = null
         }
 
         if (this._activeEnemy) {
@@ -61,6 +63,9 @@ class Ocean {
             }
             this._tentacles = []
         }
+
+        this._showTutorial = false
+        this._lastTutorialMark = 0
 
         if (this._helpText) {
             sprites.destroy(this._helpText)
@@ -97,6 +102,7 @@ class Ocean {
 
     // Adds some waves to the top of the screen as they move forward
     private addMoreWaves() {
+        if (!this._boat || !this._boat.boatSprite) return
         // TODO determine what area is "new" on the screen
         // For now just spawn at the top
         const newWave = sprites.create(assets.image`waves`, SpriteKind.Wave)

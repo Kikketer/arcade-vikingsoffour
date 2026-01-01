@@ -33,6 +33,7 @@ class GameOver {
             sprites.destroy(this._sprite)
             scene.setBackgroundImage(assets.image`GameOver`)
         } else if (this._animationStep === 2 && game.runtime() > this._nextAnimationTime) {
+            this._animationStep++
             this._pressSprite = sprites.create(assets.image`Press A`)
             this._pressSprite.setPosition(80, 80)
         }

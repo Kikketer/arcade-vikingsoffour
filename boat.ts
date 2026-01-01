@@ -45,15 +45,24 @@ class Boat {
         for (let rowman of this._rowmen) {
             rowman.destroy()
         }
-        sprites.destroy(this._shoutSprite)
-        this._shoutSprite = null
-        sprites.destroy(this.boatSprite)
-        this.boatSprite = null
+        this._rowmen = []
+
+        if (this._shoutSprite) {
+            sprites.destroy(this._shoutSprite)
+            this._shoutSprite = null
+        }
 
         for (let i = 0; i < this._fires.length; i++) {
             sprites.destroy(this._fires[i])
         }
         this._fires = []
+        
+        // TODO figure out why this is crashing the game
+        // Something is accessing the boat sprite after destroy()
+        if (this.boatSprite) {
+            sprites.destroy(this.boatSprite)
+            // this.boatSprite = null
+        }
     }
 
     // Get the player row factor
@@ -126,6 +135,8 @@ class Boat {
     }
 
     public onUpdate({ activeEnemy }: { activeEnemy: EnemyBoat }) {
+        if (!this._rowmen || !this._rowmen.length || !this.boatSprite) return
+
         this._activeEnemy = activeEnemy
         
         // Top can fire:
