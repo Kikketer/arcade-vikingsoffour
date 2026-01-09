@@ -507,6 +507,14 @@ dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
 dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
 dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
 `;
+            case "image23":
+            case "arrowRight":return img`
+1 1 1 1 . . . . . . . 
+. 1 1 1 1 . . . . 1 . 
+. . 5 5 5 5 5 5 5 1 1 
+. 1 1 1 1 . . . . 1 . 
+1 1 1 1 . . . . . . . 
+`;
         }
         return null;
     })

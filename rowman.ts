@@ -58,6 +58,8 @@ class Rowman {
         if ((this._isLeftRowman && this._targetEnemy && this._targetEnemy.enemySprite && this._targetEnemy.enemySprite.x < this._boat.x) ||
             (!this._isLeftRowman && this._targetEnemy && this._targetEnemy.enemySprite && this._targetEnemy.enemySprite.x > this._boat.x)) {
             this._isShooter = true
+            sprites.destroy(this._arrowLoadSprite)
+            this._arrowLoadSprite = sprites.create(img`.`)
             this._loadSprite.setImage(assets.image`noShoot`)
             
             if (this.canShoot) {
@@ -215,10 +217,11 @@ class Rowman {
         this._arrow.onDestroyed(() => {
             this._arrow = null
         })
-        // Flip art if needed
-        if (!this._isLeftRowman) {
-            // Flip the arrow if you are on right side
-            this._arrow.image.flipX()
+        // Set the right art (flipping carries over so it's hard to know if we should flip or not based on previous)
+        if (this._isLeftRowman) {
+            this._arrow.setImage(assets.image`arrowLeft`)
+        } else {
+            this._arrow.setImage(assets.image`arrowRight`)
         }
 
         if (this._isShooter) {
