@@ -5,9 +5,11 @@ class Title {
     private _pressSprite: Sprite = null
     private _introStep: number = 0
     private _nextIntroTime: number = 0
+    private _version: Sprite = textsprite.create('v1.0.3', 0, 14)
 
     constructor({ onComplete }: { onComplete: () => void }) {
         music.play(music.createSong(assets.song`Title screen`), music.PlaybackMode.LoopingInBackground)
+        this._version.setPosition(140, 114)
 
         controller.player1.onButtonEvent(
             ControllerButton.A,
@@ -51,6 +53,10 @@ class Title {
         if (this._pressSprite) {
             sprites.destroy(this._pressSprite)
             this._pressSprite = null
+        }
+        if (this._version) {
+            sprites.destroy(this._version)
+            this._version = null
         }
         
         controller.player1.onButtonEvent(
