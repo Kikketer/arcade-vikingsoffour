@@ -4,15 +4,19 @@ class EnemyBoat {
     private _health: number = 3
     private _nextShotTime: number = 0
     private _arrow: Sprite = null
+    private _onDestroy: () => void
 
     constructor({
         followTarget,
-        firstShot
+        firstShot,
+        onDestroy
     }: {
         followTarget: Sprite
         firstShot?: number
+        onDestroy: () => void
     }) {
         this._followSprite = followTarget
+        this._onDestroy = onDestroy
         // When creating a new enemy boat, pick a random side to spawn on
         this.enemySprite = sprites.create(assets.image`Enemy Ship Left`)
         this.enemySprite.z = 50
@@ -92,6 +96,10 @@ class EnemyBoat {
         if (this._arrow) {
             sprites.destroy(this._arrow)
             this._arrow = null
+        }
+
+        if (this._onDestroy) {
+            this._onDestroy()
         }
     }
 

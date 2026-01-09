@@ -10,7 +10,6 @@ class Boat {
     private _shoutSprite: Sprite = null
     private _rowmen: Rowman[] = null
     private _onDie: () => void
-    private _activeEnemy: EnemyBoat = null
     private _fires: Sprite[] = []
     // Current song is 8 seconds long, we manually loop it to stay in sync
     private _musicLength: number = 8000
@@ -136,8 +135,6 @@ class Boat {
 
     public onUpdate({ activeEnemy }: { activeEnemy: EnemyBoat }) {
         if (!this._rowmen || !this._rowmen.length || !this.boatSprite) return
-
-        this._activeEnemy = activeEnemy
         
         // Top can fire:
         if (this._rowmen[0].loadingStage === 3) {

@@ -10,8 +10,8 @@ class Ocean {
     private _nextEnemySpawn: number = 0
     private _shoreLine: number = -100
     private _onComplete: (win: boolean) => void = () => {}
-    // 60 second game:
-    private _tentacleAppear: number = 60000
+    // 45 second game:
+    private _tentacleAppear: number = 450000
     private _tentacles: Sprite[] = []
     private _showTutorial: boolean = false
     private _helpText: Sprite = null
@@ -34,7 +34,10 @@ class Ocean {
 
         this._activeEnemy = new EnemyBoat({
             followTarget: this._boat.boatSprite,
-            firstShot: 12000
+            firstShot: 12000,
+            onDestroy: () => {
+                this._activeEnemy = null
+            }
         })
 
         // Decide when the next enemy should spawn
@@ -154,7 +157,10 @@ class Ocean {
             this._activeEnemy.onUpdate()
         } else if (game.runtime() > this._nextEnemySpawn) {
             this._activeEnemy = new EnemyBoat({
-                followTarget: this._boat.boatSprite
+                followTarget: this._boat.boatSprite,
+                onDestroy: () => {
+                    this._activeEnemy = null
+                }
             })
             // Schedule next spawn
             this._nextEnemySpawn =
@@ -162,7 +168,7 @@ class Ocean {
         }
 
         // Spawn tentacles
-        if (game.runtime() > this._tentacleAppear && !this._tentacles) {
+        if (game.runtime() > this._tentacleAppear && !this._tentacles.length) {
             for (let i = 0; i < 2; i++) {
                 const tentacle = sprites.create(img`7`, SpriteKind.Enemy)
                 tentacle.setPosition(this._boat.boatSprite.x - (i * 16), this._boat.boatSprite.y + 50 + (i * 5))
