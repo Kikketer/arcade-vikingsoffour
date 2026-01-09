@@ -22,7 +22,7 @@ class EnemyBoat {
         this.enemySprite.z = 50
         this._nextShotTime = firstShot
             ? game.runtime() + firstShot
-            : Utils.random(3000, 5000)
+            : game.runtime() + Utils.random(3000, 5000)
         // Spawn the sprite off screen
         const spawnSide = Utils.random(1, 2)
         switch (spawnSide) {
@@ -104,6 +104,8 @@ class EnemyBoat {
     }
 
     public hit({ damage }: { damage: number }) {
+        // If we get hit, we delay our next shot, so shoot quick!
+        this._nextShotTime = game.runtime() + Utils.random(2000, 4000)
         this._health -= damage
         if (this._health <= 0) {
             this.enemySprite.startEffect(effects.fire, 500)

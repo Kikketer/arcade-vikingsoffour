@@ -36,7 +36,7 @@ class Ocean {
             followTarget: this._boat.boatSprite,
             firstShot: 12000,
             onDestroy: () => {
-                this._activeEnemy = null
+                this.onEnemyDestroy()
             }
         })
 
@@ -123,6 +123,13 @@ class Ocean {
         )
     }
 
+    private onEnemyDestroy() {
+        this._activeEnemy = null
+        // Schedule next spawn
+        this._nextEnemySpawn =
+            game.runtime() + Utils.random(5000, 8000)
+    }
+
     public onUpdate() {
         if (!this._boat || !this._boat.boatSprite) return
 
@@ -159,12 +166,9 @@ class Ocean {
             this._activeEnemy = new EnemyBoat({
                 followTarget: this._boat.boatSprite,
                 onDestroy: () => {
-                    this._activeEnemy = null
+                    this.onEnemyDestroy()
                 }
             })
-            // Schedule next spawn
-            this._nextEnemySpawn =
-                game.runtime() + Utils.random(5000, 8000)
         }
 
         // Spawn tentacles
